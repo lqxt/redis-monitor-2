@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.redis.monitor.RedisServer;
 import com.redis.monitor.redis.BasicRedisCacheServer;
@@ -12,7 +13,7 @@ import com.redis.monitor.redis.RedisCacheServer;
 
 public class RedisJedisPool {
 	
-	private static Map<String,BasicRedisCacheServer> map = new HashMap<String, BasicRedisCacheServer>();;
+	private static Map<String,BasicRedisCacheServer> map = new ConcurrentHashMap<String, BasicRedisCacheServer>();;
 	private static List<RedisServer> list = new ArrayList<RedisServer>();
 	
 	public RedisJedisPool () {}
@@ -28,6 +29,13 @@ public class RedisJedisPool {
 				BasicRedisCacheServer readServer = new RedisCacheServer(slRs.getHost(), slRs.getPort(), slRs.getMaxActive(), slRs.getMaxIdle(), slRs.getMaxWait(), slRs.isTestOnBorrow());
 				map.put(slRs.getUuid(), readServer);
 			}
+		}
+	}
+	
+	public static void addNewRedisServer(RedisServer rs) {
+		if (rs != null) {
+			BasicRedisCacheServer server = new RedisCacheServer(rs.getHost(), rs.getPort(), rs.getMaxActive(), rs.getMaxIdle(), rs.getMaxWait(), rs.isTestOnBorrow());
+			map.put(rs.getUuid(), server);
 		}
 	}
 	
