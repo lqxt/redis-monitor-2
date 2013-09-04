@@ -6,9 +6,11 @@ import java.util.Set;
 
 import redis.clients.jedis.Client;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisMonitor;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
+import com.redis.monitor.FeJedisMonitor;
 import com.redis.monitor.json.FastJson;
 
 public class RedisCacheServer implements BasicRedisCacheServer {
@@ -291,14 +293,14 @@ public class RedisCacheServer implements BasicRedisCacheServer {
 		}
 	}
 	
-	public String monitor() {
+	public void monitor() {
 		Jedis jedis = null;
 		try {
 			jedis = jedisPool.getResource();
-			//TODO 获取redis服务器信息
+			FeJedisMonitor jm = new FeJedisMonitor();
 			Client client = jedis.getClient();
 			client.monitor();
-			return client.getBulkReply();
+			jm.proceed(client);
 		} finally {
 			if (jedis != null)
 				jedisPool.returnResource(jedis);

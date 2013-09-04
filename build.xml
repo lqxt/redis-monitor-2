@@ -1,0 +1,44 @@
+<project name="redis-monitor" basedir="." default="deploy" xmlns:artifact="antlib:org.apache.maven.artifact.ant">
+	<property file="build.properties" />
+	
+	<property name="resources.dir" value="${basedir}/src/main/resources" />
+    <property name="deploy.home" value="${basedir}/src/main/webapp"/>
+	<property name="messages.dir" value="${basedir}/messages"/>
+	<property name="classes.dir" value="${basedir}/target/classes" />
+	
+	<path id="maven-ant-tasks.classpath" path="${basedir}/lib/ant/maven-ant-tasks-2.0.10.jar" />
+
+	<path id="ant-contrib.classpath" path="${basedir}/lib/ant/ant-contrib-1.0b3.jar" />
+
+	<typedef resource="org/apache/maven/artifact/ant/antlib.xml" uri="antlib:org.apache.maven.artifact.ant" classpathref="maven-ant-tasks.classpath" />
+
+	<taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="ant-contrib.classpath" />
+
+	<target name="copyResources">
+		<copy todir="${deploy.home}/WEB-INF/classes">
+			<fileset dir="${resources.dir}" />
+		</copy>
+	</target>
+	
+	
+	<target name="copyClass">
+		<mkdir dir="${deploy.home}/WEB-INF/classes" />
+		<copy todir="${deploy.home}/WEB-INF/classes">
+			<fileset dir="${classes.dir}" />
+		</copy>
+	</target>
+	
+	<target name="copyLib">
+		<artifact:dependencies filesetId="project.dep.fileset" useScope="runtime">
+			<pom file="pom.xml" />
+		</artifact:dependencies>
+
+		<mkdir dir="${deploy.home}/WEB-INF/lib" />
+		<copy todir="${deploy.home}/WEB-INF/lib">
+			<fileset refid="project.dep.fileset" />
+			<mapper type="flatten" />
+		</copy>
+	</target>
+
+	<target name="deploy" depends="" />
+</project>

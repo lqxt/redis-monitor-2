@@ -113,7 +113,17 @@ public class RedisServer {
 	public void setMasterRedisServer(RedisServer masterRedisServer) {
 		this.masterRedisServer = masterRedisServer;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "RedisServer [uuid=" + uuid + ", name=" + name
+				+ ", description=" + description + ", host=" + host + ", port="
+				+ port + ", maxActive=" + maxActive + ", maxIdle=" + maxIdle
+				+ ", maxWait=" + maxWait + ", testOnBorrow=" + testOnBorrow
+				+ ", isMaster=" + isMaster + ", slaveRedisServer="
+				+ slaveRedisServer + ", masterRedisServer=" + masterRedisServer
+				+ "]";
+	}
 	
 	
 	
