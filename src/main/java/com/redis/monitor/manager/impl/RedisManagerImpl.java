@@ -47,6 +47,18 @@ public class RedisManagerImpl implements RedisManager {
 	public String flushDb() {
 		return null;
 	}
+	
+	public void saveKeyData() {
+		
+	}
+	
+	public void saveMemeryData() {
+		
+	}
+	
+	public void saveOperateData() {
+		
+	}
 
 	public BasicRedisCacheServer getBasicRedisCacheServer() {
 		return RedisCacheThreadLocal.get();

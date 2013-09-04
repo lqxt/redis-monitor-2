@@ -27,4 +27,10 @@ public interface RedisManager {
 	
 	public String flushDb();
 	
+	public void saveKeyData();
+	
+	public void saveMemeryData();
+	
+	public void saveOperateData();
+	
 }
