@@ -26,6 +26,8 @@ public class RedisConfigInit {
 	public static String FILE_PATH = "";
 	public static String FILE_NAME = DEFAULT_FILE_NAME;
 	
+	public static int LOAD_SIZE = 0;
+	
 	private List<RedisServer> listRS;
 	
 	static {
@@ -69,6 +71,9 @@ public class RedisConfigInit {
 					RedisServer slaveRs = convertElementToRs(slave);
 					slaveRs.setMasterRedisServer(rs);
 					slaveList.add(convertElementToRs(slave));
+					
+					//TODO 服务计数器
+					LOAD_SIZE++;
 				}
 				
 				rs.setSlaveRedisServer(slaveList);
@@ -108,13 +113,52 @@ public class RedisConfigInit {
 		return rs;
 	}
 	
+	/**
+	 * 服务器停止,或者定时将新加的redis配置写入文件
+	 */
+	public void createConfigXml() {
+		List<RedisServer> rsList = RedisJedisPool.getAllRedisServer();
+		if (rsList != null && rsList.size() > 0) {
+			int index = 0;
+			for (RedisServer rs : rsList) {
+				for (RedisServer s : rs.getSlaveRedisServer()) {
+					index++;
+				}
+			}
+			
+			//TODO 如果有新的服务加入
+			if (index > LOAD_SIZE) {
+				logger.info("has new server,begin buid Redis-Server-Config.xml");
+			}
+		}
+	}
+	
 	public static void main(String[] args) {
 		new RedisConfigInit().resolveXml();
 		BasicRedisCacheServer brc =RedisJedisPool.getRedisCacheServer("0102");
-		for (Object o : brc.slowLog()) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				for (;;) {
+					try {
+						String data = SocketMonitor.getData();
+						if (data == null) {
+							Thread.sleep(3000);
+						}
+						System.out.println(data);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
+		brc.monitor();
+		
+		
+	/*	for (Object o : brc.slowLog()) {
 			List<Object> obj = (List<Object>)o;
 			System.out.println(obj.get(0));
-		}
+		}*/
 	}
 
 }
