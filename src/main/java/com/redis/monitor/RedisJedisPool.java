@@ -47,8 +47,16 @@ public class RedisJedisPool {
 		return map.get(uuid).getBasicRedisCacheServer();
 	}
 	
+	public static BasicRedisCacheServer getRedisCacheServer() {
+		return map.get(RedisCacheThreadLocal.getUuid()).getBasicRedisCacheServer();
+	}
+	
 	public static RedisServer getRedisServer(String uuid) {
 		return map.get(uuid).getRedisServer();
+	}
+	
+	public static RedisServer getRedisServer() {
+		return map.get(RedisCacheThreadLocal.getUuid()).getRedisServer();
 	}
 	
 	public static List<RedisServer> getAllRedisServer() {
