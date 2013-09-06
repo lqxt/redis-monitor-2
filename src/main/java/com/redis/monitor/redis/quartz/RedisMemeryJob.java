@@ -27,10 +27,10 @@ public class RedisMemeryJob {
 		    		FileOutputStream outputStream = null;
 					try {
 						SimpleDateFormat dayFormat = new SimpleDateFormat("yyyyMMdd");
-						File root = new File(Thread.currentThread().getContextClassLoader().getResource("").getFile()).getParentFile().getParentFile();
+					//	File root = new File(Thread.currentThread().getContextClassLoader().getResource("").getFile()).getParentFile();
 						
-						String fileName = "keys-" + key + "-" + dayFormat.format(new Date()) + ".txt";
-						File file = new File(root.getAbsolutePath() + "\\" + fileName);
+						String fileName = "memery-" + key + "-" + dayFormat.format(new Date()) + ".txt";
+						File file = new File(Thread.currentThread().getContextClassLoader().getResource("").getFile() + "\\monitor-log\\keys\\" + fileName);
 						if (!file.exists()) {
 							file.createNewFile();
 						}

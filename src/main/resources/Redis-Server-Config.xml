@@ -15,8 +15,8 @@
             <slave uuid="0102">
                <name>userRead</name>
                <description>用户读服务</description>
-               <host>localhost</host>
-               <port>6379</port>
+               <host>192.168.4.117</host>
+               <port>6380</port>
                <maxActive>300</maxActive>
                <maxIdle>50</maxIdle>
                <maxWait>3000</maxWait>

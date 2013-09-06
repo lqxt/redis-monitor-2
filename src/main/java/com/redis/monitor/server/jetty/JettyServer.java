@@ -1,16 +1,15 @@
 package com.redis.monitor.server.jetty;
 
 
-import java.io.File;
-import java.io.FileInputStream;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
-import org.eclipse.jetty.xml.XmlConfiguration;
+
+import com.redis.monitor.Constants;
 
 public class JettyServer {
 	public static void main(String[] args) throws Exception {
-		   String webapp = "D:\\work-space\\sourcecode-workspace\\redis-monitor\\src\\main\\webapp";//声明项目所在的目录
+		   String webapp = Constants.WEB_APP;//声明项目所在的目录
 	       Server server = new Server(8080);                                //声明端口
 	       WebAppContext context = new WebAppContext();                   //声明上下文对象
 	       context.setDescriptor(webapp + "/WEB-INF/web.xml");                //指定web.xml文件，可选
