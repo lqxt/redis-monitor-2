@@ -50,7 +50,7 @@ public class RedisMemeryJob {
 				    	  //TODO 写入文件
 				    	  SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				    	  Map<String,String> map = new HashMap<String, String>();
-				    	  map.put("used_memory_human", detail[1]);
+				    	  map.put("used_memory_human", detail[1].substring(0, detail[1].length() - 1));
 				    	  map.put("create_time", dateFormat.format(new Date()));
 				    	  
 				    	  try {
