@@ -10,8 +10,22 @@
 	padding-bottom: 0px;
 }
 
+.span-content {
+	width: 90%;
+	margin-left : 0 ;
+	padding: 0px;
+	border: 1px solid #d4d8eb;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	-moz-box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+	-webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+	box-shadow: 0 1px 6px rgba(0,0,0,0.2);
+	padding-bottom: 0px;
+}
+
 .chart {
-	overflow: hidden;
+	overflow: hidden ;
 	padding: 0px;
 	border: 1px solid #d4d8eb;
 	-moz-border-radius: 3px;
