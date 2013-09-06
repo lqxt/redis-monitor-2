@@ -39,12 +39,12 @@
 				<!--/.well -->
 			</div>
 			<!--/span-->
-			<div class="span9">
-				<div class="hero-unit chart">
-					<div id="container"></div>
+			<div class="span9"> 
+				<div class="hero-unit chart" >
+					<div id="container" class="container"></div>
 				</div>
 				<div class="hero-unit chart">
-					<div id="keysChart"></div>
+					<div id="keysChart" class="container"></div>
 				</div>
 				<div class="hero-unit chart">
 					<table class="table table-hover">
