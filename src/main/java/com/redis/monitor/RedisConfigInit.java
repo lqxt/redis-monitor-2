@@ -15,6 +15,8 @@ import org.dom4j.io.SAXReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import redis.clients.util.Slowlog;
+
 import com.redis.monitor.redis.BasicRedisCacheServer;
 
 
@@ -140,39 +142,14 @@ public class RedisConfigInit {
 		BasicRedisCacheServer brc =RedisJedisPool.getRedisCacheServer("0101");
 		
 		String str = brc.getRedisInfo();
-		System.out.println(str);
-		String[] strs = str.split("\n");
-		
-		for (int i = 0; i < strs.length; i++) {
-			String s = strs[i];
-			String[] detail = s.split(":");
-			if (detail[0].equals("used_memory_human")) {
-				System.out.println("-> " + s);
-			}
+		List<Slowlog> list = brc.slowlogs();
+		for (Slowlog sl : list) {
+			System.out.println(sl.getId());
+			System.out.println(sl.getTimeStamp());
+			System.out.println(sl.getExecutionTime());
+			System.out.println(sl.getArgs());
+			System.out.println("#######################");
 		}
-	/*	new Thread(new Runnable() {
-			@Override
-			public void run() {
-				for (;;) {
-					try {
-						String data = SocketMonitor.getData();
-						if (data == null) {
-							Thread.sleep(3000);
-						}
-						System.out.println(data);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		}).start();
-		brc.monitor();*/
-		
-		
-	/*	for (Object o : brc.slowLog()) {
-			List<Object> obj = (List<Object>)o;
-			System.out.println(obj.get(0));
-		}*/
 	}
 
 }

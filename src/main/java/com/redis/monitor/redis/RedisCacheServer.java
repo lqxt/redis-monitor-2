@@ -9,6 +9,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisMonitor;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.util.Slowlog;
 
 import com.redis.monitor.FeJedisMonitor;
 import com.redis.monitor.json.FastJson;
@@ -353,19 +354,6 @@ public class RedisCacheServer implements BasicRedisCacheServer {
 		}
 	}
 	
-	public List<Object> slowLog() {
-		Jedis jedis = null;
-		try {
-			jedis = jedisPool.getResource();
-			//TODO 配置redis服务信息
-			Client client = jedis.getClient();
-			client.slowlogGet();
-			return client.getAll();
-		} finally {
-			if (jedis != null)
-				jedisPool.returnResource(jedis);
-		}
-	}
 	public void save(String key, String value) {
 		Jedis jedis = null;
 		try {
@@ -586,6 +574,17 @@ public class RedisCacheServer implements BasicRedisCacheServer {
 		try {
 			jedis = jedisPool.getResource();
 			jedis.rpush(key, data);
+		} finally {
+			if (jedis != null)
+				jedisPool.returnResource(jedis);
+		}
+	}
+	
+	public List<Slowlog> slowlogs() {
+		Jedis jedis = null;
+		try {
+			jedis = jedisPool.getResource();
+			return jedis.slowlogGet();
 		} finally {
 			if (jedis != null)
 				jedisPool.returnResource(jedis);

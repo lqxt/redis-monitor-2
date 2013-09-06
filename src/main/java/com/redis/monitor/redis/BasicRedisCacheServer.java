@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import redis.clients.util.Slowlog;
+
 public interface BasicRedisCacheServer {
 	public List<String> get(String key, String mapKey);
 	public String get(String key);
@@ -63,8 +65,6 @@ public interface BasicRedisCacheServer {
 	
 	public Long dbSize();
 	
-	public List<Object>  slowLog();
-	
 	public void save(String key, String value);
 
 	public void save(String key, String value, int expireTime);
@@ -110,4 +110,6 @@ public interface BasicRedisCacheServer {
 	 * @param data
 	 */
 	public void rpushQueue(String key,String data);
+	
+	public List<Slowlog> slowlogs();
 }
