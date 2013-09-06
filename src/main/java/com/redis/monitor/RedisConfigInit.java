@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
+
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -135,8 +137,20 @@ public class RedisConfigInit {
 	
 	public static void main(String[] args) {
 		new RedisConfigInit().resolveXml();
-		BasicRedisCacheServer brc =RedisJedisPool.getRedisCacheServer("0102");
-		new Thread(new Runnable() {
+		BasicRedisCacheServer brc =RedisJedisPool.getRedisCacheServer("0101");
+		
+		String str = brc.getRedisInfo();
+		System.out.println(str);
+		String[] strs = str.split("\n");
+		
+		for (int i = 0; i < strs.length; i++) {
+			String s = strs[i];
+			String[] detail = s.split(":");
+			if (detail[0].equals("used_memory_human")) {
+				System.out.println("-> " + s);
+			}
+		}
+	/*	new Thread(new Runnable() {
 			@Override
 			public void run() {
 				for (;;) {
@@ -152,7 +166,7 @@ public class RedisConfigInit {
 				}
 			}
 		}).start();
-		brc.monitor();
+		brc.monitor();*/
 		
 		
 	/*	for (Object o : brc.slowLog()) {

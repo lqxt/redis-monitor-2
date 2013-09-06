@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.redis.monitor.RedisServer;
@@ -14,14 +15,12 @@ import com.redis.monitor.redis.RedisCacheServer;
 public class RedisJedisPool {
 	
 	private static Map<String,Redis> map = new ConcurrentHashMap<String, Redis>();;
-	private static List<RedisServer> list = new ArrayList<RedisServer>();
 	
 	public RedisJedisPool () {}
 
 	public static void initRedisJedisPool(List<RedisServer> rsList) {
 		Redis redis = null;
 		for (RedisServer rs : rsList) {
-			list = rsList;
 			BasicRedisCacheServer server = new RedisCacheServer(rs.getHost(), rs.getPort(), rs.getMaxActive(), rs.getMaxIdle(), rs.getMaxWait(), rs.isTestOnBorrow());
 			redis = new Redis(server, rs);
 			map.put(rs.getUuid(), redis);
@@ -66,6 +65,14 @@ public class RedisJedisPool {
 			rsList.add(map.get(key).getRedisServer());
 		}
 		return rsList;
+	}
+	
+	public static boolean isExists(String uuid) {
+		return map.containsKey(uuid);
+	}
+	
+	public static Set<String> getRedisUuids() {
+		return map.keySet();
 	}
 	
 }

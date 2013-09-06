@@ -30,11 +30,10 @@ public class ServerInteceptor extends HandlerInterceptorAdapter {
 					break;
 				}
 			}
-			
-			if (handler instanceof BaseProfileController) {
-				logger.info("choice redis server :{}",RedisJedisPool.getRedisServer(uuid));
-				RedisCacheThreadLocal.set(uuid);
-			}
+		}
+		if (handler instanceof BaseProfileController) {
+			logger.info("choice redis server :{}",RedisJedisPool.getRedisServer(uuid));
+			RedisCacheThreadLocal.set(uuid);
 		}
 		return super.preHandle(request, response, handler);
 	}

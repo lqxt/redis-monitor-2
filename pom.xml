@@ -10,10 +10,8 @@
 	<name>redis-monitor</name>
 	<url>http://maven.apache.org</url>
 
-	<!-- <build>
-		<outputDirectory>${basedir}/src/main/webapp/WEB-INF/classes</outputDirectory>
-	</build>
- -->
+	<!-- <build> <outputDirectory>${basedir}/src/main/webapp/WEB-INF/classes</outputDirectory> 
+		</build> -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -116,7 +114,16 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>3.1.0.RELEASE</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.opensymphony.quartz</groupId>
+			<artifactId>quartz</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.1</version>
+		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -144,7 +151,7 @@
 			<artifactId>jta</artifactId>
 			<version>1.1</version>
 		</dependency>
-        <dependency>
+		<dependency>
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
 			<version>1.6.1</version>

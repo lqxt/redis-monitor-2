@@ -22,5 +22,6 @@
 	</bean>
 	
 	<bean id="redisConfigInit" class="com.redis.monitor.RedisConfigInit" init-method="init"></bean>
-	
+	<bean id="redisManager" class="com.redis.monitor.manager.impl.RedisManagerImpl" ></bean>
+	<import resource="spring-quartz.xml"/>
 </beans>

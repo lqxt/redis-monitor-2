@@ -1,13 +1,20 @@
 package com.redis.monitor;
 
 public class RedisInfoDetail {
-	private String detail;
+	public String key;
+	public String value;
 	private String desctiption;
-	public String getDetail() {
-		return detail;
+	public String getKey() {
+		return key;
 	}
-	public void setDetail(String detail) {
-		this.detail = detail;
+	public void setKey(String key) {
+		this.key = key;
+	}
+	public String getValue() {
+		return value;
+	}
+	public void setValue(String value) {
+		this.value = value;
 	}
 	public String getDesctiption() {
 		return desctiption;
@@ -15,5 +22,4 @@ public class RedisInfoDetail {
 	public void setDesctiption(String desctiption) {
 		this.desctiption = desctiption;
 	}
-
 }

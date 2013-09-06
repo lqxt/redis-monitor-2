@@ -11,7 +11,7 @@ public interface RedisManager {
 	
 	public List<RedisServer> redisServerList();
 	
-	public RedisInfoDetail getRedisInfo();
+	public List<RedisInfoDetail> getRedisInfo();
 	
 	public RedisConfigXml getRedisConfigXmlDetail();
 	
@@ -27,10 +27,5 @@ public interface RedisManager {
 	
 	public String flushDb();
 	
-	public void saveKeyData();
-	
-	public void saveMemeryData();
-	
-	public void saveOperateData();
 	
 }

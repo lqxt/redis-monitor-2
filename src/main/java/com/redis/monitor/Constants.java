@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 public class Constants {
 	
 	public static final ResourceBundle config = ResourceBundle.getBundle("config");
+	public static final ResourceBundle message = ResourceBundle.getBundle("message");
 	
 	public static final String JSON_VIEW = "jsonView";
 	
