@@ -30,7 +30,7 @@ public class RedisMemeryJob {
 					//	File root = new File(Thread.currentThread().getContextClassLoader().getResource("").getFile()).getParentFile();
 						
 						String fileName = "memery-" + key + "-" + dayFormat.format(new Date()) + ".txt";
-						File file = new File(Thread.currentThread().getContextClassLoader().getResource("").getFile() + "\\monitor-log\\keys\\" + fileName);
+						File file = new File(Thread.currentThread().getContextClassLoader().getResource("").getFile() + "\\monitor-log\\memery\\" + fileName);
 						if (!file.exists()) {
 							file.createNewFile();
 						}
