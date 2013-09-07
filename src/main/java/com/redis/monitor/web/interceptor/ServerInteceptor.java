@@ -32,6 +32,9 @@ public class ServerInteceptor extends HandlerInterceptorAdapter {
 			}
 		}
 		if (handler instanceof BaseProfileController) {
+			if (uuid.equals("")) {
+				uuid = RedisJedisPool.DEFAULT_UUID;
+			}
 			logger.info("choice redis server :{}",RedisJedisPool.getRedisServer(uuid));
 			RedisCacheThreadLocal.set(uuid);
 		}

@@ -6,10 +6,14 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import redis.clients.jedis.Client;
+
 
 public class SocketMonitor {
 	
 	private static Map<String, BlockingQueue<String>> map = new ConcurrentHashMap<String, BlockingQueue<String>>();
+	private static Map<String,Client> clientMap = new ConcurrentHashMap<String, Client>();
+	
 	
 	public static void set(String data) {
 		try {
@@ -22,6 +26,25 @@ public class SocketMonitor {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void set(Client client) {
+		try {
+			BlockingQueue<String> blockingQueue = map.get(RedisCacheThreadLocal.getUuid());
+			if (blockingQueue == null) {
+				blockingQueue = new LinkedBlockingQueue<String>();
+				map.put(RedisCacheThreadLocal.getUuid(), blockingQueue);
+			}
+			blockingQueue.put(client.getBulkReply());
+			
+			if (!clientMap.containsKey(RedisCacheThreadLocal.getUuid()))  clientMap.put(RedisCacheThreadLocal.getUuid(), client);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void disconnectClient() {
+		clientMap.remove(RedisCacheThreadLocal.getUuid());
 	}
 	
 	public static String getData() throws Exception {

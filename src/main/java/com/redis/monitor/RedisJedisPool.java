@@ -14,7 +14,9 @@ import com.redis.monitor.redis.RedisCacheServer;
 
 public class RedisJedisPool {
 	
-	private static Map<String,Redis> map = new ConcurrentHashMap<String, Redis>();;
+	private static Map<String,Redis> map = new ConcurrentHashMap<String, Redis>();
+	
+	public static final String DEFAULT_UUID = Constants.DEFAULT_UUID;
 	
 	public RedisJedisPool () {}
 
@@ -52,6 +54,10 @@ public class RedisJedisPool {
 	
 	public static RedisServer getRedisServer(String uuid) {
 		return map.get(uuid).getRedisServer();
+	}
+	
+	public static String getDefaultUuid() {
+		return DEFAULT_UUID;
 	}
 	
 	public static RedisServer getRedisServer() {

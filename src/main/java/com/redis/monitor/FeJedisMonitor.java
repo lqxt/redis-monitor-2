@@ -5,12 +5,25 @@ import redis.clients.jedis.JedisMonitor;
 
 public  class FeJedisMonitor extends JedisMonitor {
 	
+	private static final int sleepTime = 1000 * 10;
+	private static final int ifNoDataWhenFree = 1000 * 10;
+	
+	private long beginTime = System.currentTimeMillis();
+	
 	public void proceed(Client client) {
         this.client = client;
         this.client.setTimeoutInfinite();
         do {
-            String command = client.getBulkReply();
-            SocketMonitor.set(command);
+        	long nowTime = System.currentTimeMillis();
+        	if ((nowTime - beginTime) > ifNoDataWhenFree) {
+        		beginTime = nowTime;
+        		try {
+					Thread.sleep(sleepTime);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+        	}
+            SocketMonitor.set(client);
         } while (client.isConnected());
     }
 	 public  void onCommand(String command) {

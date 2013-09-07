@@ -1,4 +1,5 @@
 <%@tag pageEncoding="utf-8" isELIgnored="false" description="header" body-content="empty"%>
+<%@include file="/WEB-INF/jsp/taglib/taglibs.jsp" %>
 <div class="navbar">
 	<div class="navbar-inner">
 		<div class="container">
@@ -11,11 +12,14 @@
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown">redis服务 <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li class=""><a href="#one">飞路快用户读服务</a></li>
+						   <c:forEach var="rs" items="${redisServerList }">
+						     <li class=""><a href="#one">${rs.description }</a></li>
+						   </c:forEach>
+							<!-- <li class=""><a href="#one">飞路快用户读服务</a></li>
 							<li><a href="#two">飞路快用户写服务</a></li>
 							<li class="divider"></li>
 							<li><a href="#three">飞路快poi写服务</a></li>
-							<li><a href="#three">飞路快poi读服务</a></li>
+							<li><a href="#three">飞路快poi读服务</a></li> -->
 						</ul></li>
 					<li><a href="#">keys</a></li>
 					<li><a href="#">redis-config.xml</a></li>

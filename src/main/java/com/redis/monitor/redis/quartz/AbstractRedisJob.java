@@ -49,7 +49,7 @@ public abstract class AbstractRedisJob implements RedisJob {
 				try {
 					file = new File(getFileName(getPreffix(),key));
 					if (!file.exists()) {
-						logger.info("create monitor file,file name : {}",file.getName());
+						logger.debug("create monitor file,file name : {}",file.getName());
 						file.createNewFile();
 					}
 					outputStream = new FileOutputStream(file, true);
@@ -65,7 +65,7 @@ public abstract class AbstractRedisJob implements RedisJob {
 				if (map != null && map.size() > 0) {
 					try {
 						String json = FastJson.toJson(map);
-						logger.info("save date to monitor file,file name :{}, data : {} ",new Object[]{file.getName(),json});
+						logger.debug("save date to monitor file,file name :{}, data : {} ",new Object[]{file.getName(),json});
 						IOUtils.write(json + "\n",outputStream);
 					} catch (IOException e) {
 						e.printStackTrace();
