@@ -26,7 +26,11 @@ public abstract class AbstractRedisJob implements RedisJob {
 	protected String getFileName(String preffix,String uuid) {
 		SimpleDateFormat dayFormat = new SimpleDateFormat("yyyyMMdd");
 		String fileName = preffix + "-" + uuid + "-" + dayFormat.format(new Date()) + ".txt";
-		return Thread.currentThread().getContextClassLoader().getResource("").getFile() + "\\monitor-log\\" + preffix + "\\" + fileName;
+		return Thread.currentThread().getContextClassLoader().getResource("").getFile() + "/monitor-log/" + preffix + "/" + fileName;
+	}
+	
+	protected String getDrirectoryPath(String preffix) {
+		return  Thread.currentThread().getContextClassLoader().getResource("").getFile() + "/monitor-log/" + preffix;
 	}
 	
 	protected String getDateStr() {
@@ -48,6 +52,10 @@ public abstract class AbstractRedisJob implements RedisJob {
 				File file = null;
 				try {
 					file = new File(getFileName(getPreffix(),key));
+					File dirFile = new File(getDrirectoryPath(getPreffix()));
+					if (!dirFile.exists()) {
+						dirFile.mkdirs();
+					}
 					if (!file.exists()) {
 						logger.debug("create monitor file,file name : {}",file.getName());
 						file.createNewFile();
