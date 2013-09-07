@@ -74,3 +74,25 @@
 	margin: 20px 20px auto auto;
 	float: right;
 }
+
+.e-log {}
+.e-log .e-console {
+	height: 600px;
+	background-color: black;
+	color: yellow;
+	padding: 10px;
+}
+
+.e-log .e-control{
+	height: 30px;
+}
+
+.e-log .e-startstop{
+	float : left ;
+}
+.e-log .e-cache {
+	float : left ;
+}
+.e-log .e-assist {
+	float : right ;
+}
