@@ -3,6 +3,7 @@ package com.redis.monitor;
 import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import org.slf4j.LoggerFactory;
 
 import redis.clients.util.Slowlog;
 
+import com.ibm.icu.text.SimpleDateFormat;
 import com.redis.monitor.redis.BasicRedisCacheServer;
 
 
@@ -138,18 +140,11 @@ public class RedisConfigInit {
 	}
 	
 	public static void main(String[] args) {
-		new RedisConfigInit().resolveXml();
-		BasicRedisCacheServer brc =RedisJedisPool.getRedisCacheServer("0101");
-		
-		String str = brc.getRedisInfo();
-		List<Slowlog> list = brc.slowlogs();
-		for (Slowlog sl : list) {
-			System.out.println(sl.getId());
-			System.out.println(sl.getTimeStamp());
-			System.out.println(sl.getExecutionTime());
-			System.out.println(sl.getArgs());
-			System.out.println("#######################");
-		}
+		//new RedisConfigInit().resolveXml();
+		//BasicRedisCacheServer brc =RedisJedisPool.getRedisCacheServer("0101");
+		long l = 1378543488107l;
+		Date date = new Date(l);
+		System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date));
 	}
 
 }

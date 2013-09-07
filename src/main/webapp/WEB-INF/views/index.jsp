@@ -48,22 +48,23 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th>First Name</th>
-								<th>Last Name</th>
-								<th>Username</th>
+								<th>id</th>
+								<th>创建时间</th>
+								<th>执行时间</th>
+								<th>用时(微秒)</th>
+								<th>执行命令</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>Mark</td>
-								<td>Otto</td>
-								<td>@mdo</td>
+						<c:forEach var="op" items="${opList }">
+						    <tr>
+								<td>${op.id }</td>
+								<td>${op.createTime }</td>
+								<td>${op.executeTime }</td>
+								<td>${op.usedTime }</td>
+								<td>${op.args }</td>
 							</tr>
-							<tr>
-								<td>Jacob</td>
-								<td>Thornton</td>
-								<td>@fat</td>
-							</tr>
+						</c:forEach>
 						</tbody>
 					</table>
 				</div>

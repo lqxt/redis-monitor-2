@@ -1,9 +1,15 @@
 package com.redis.monitor.manager.impl;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,8 +19,12 @@ import com.redis.monitor.RedisConfigXml;
 import com.redis.monitor.RedisInfoDetail;
 import com.redis.monitor.RedisJedisPool;
 import com.redis.monitor.RedisServer;
+import com.redis.monitor.entity.Operate;
+import com.redis.monitor.entity.OperateCompare;
+import com.redis.monitor.json.FastJson;
 import com.redis.monitor.manager.RedisManager;
 import com.redis.monitor.redis.BasicRedisCacheServer;
+import com.redis.monitor.utils.FileUtils;
 
 public class RedisManagerImpl implements RedisManager {
 	
@@ -68,6 +78,25 @@ public class RedisManagerImpl implements RedisManager {
 
 	public String flushDb() {
 		return null;
+	}
+	
+	public List<Operate> findAllOperateDetail() {
+		File file = FileUtils.getFile("operate", RedisCacheThreadLocal.getUuid());
+		List<Operate> opList = null;
+		try {
+			List<String> list = IOUtils.readLines(new FileInputStream(file));
+			StringBuffer sb = new StringBuffer();
+			for (String str : list) {
+				sb.append(str);
+			}
+			opList = FastJson.jsonToList("[" + sb.toString() + "]", Operate.class);
+			Collections.sort(opList, new OperateCompare());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return opList;
 	}
 
 	public BasicRedisCacheServer getBasicRedisCacheServer() {

@@ -1,3 +1,4 @@
+<%@tag import="com.redis.monitor.RedisJedisPool"%>
 <%@tag pageEncoding="utf-8" isELIgnored="false" description="header" body-content="empty"%>
 <%@include file="/WEB-INF/jsp/taglib/taglibs.jsp" %>
 <div class="navbar">
@@ -13,7 +14,7 @@
 						data-toggle="dropdown">redis服务 <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 						   <c:forEach var="rs" items="${redisServerList }">
-						     <li class=""><a href="#one">${rs.description }</a></li>
+						     <li class=""><a href="/index.htm?uuid=${rs.uuid }">${rs.description }</a></li>
 						   </c:forEach>
 							<!-- <li class=""><a href="#one">飞路快用户读服务</a></li>
 							<li><a href="#two">飞路快用户写服务</a></li>
@@ -27,7 +28,7 @@
 					<li><a href="#">redis实时监控</a></li>
 				</ul>
 				<ul class="nav pull-right">
-					<li class="active"><a href="#"><font size="5">redis://${redisServerList[0].host}:${redisServerList[0].port}</font></a></li>
+					<li class="active"><a href="#"><font size="5">redis://${host }:${port }</font></a></li>
 					<li class="divider-vertical"></li>
 					<li><button class="btn btn-small btn-primary" id="flushall">flushall</button></li>
 					<li class="divider-vertical"></li>

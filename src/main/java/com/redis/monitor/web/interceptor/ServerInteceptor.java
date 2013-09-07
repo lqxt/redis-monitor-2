@@ -11,6 +11,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import com.redis.monitor.RedisCacheThreadLocal;
 import com.redis.monitor.RedisJedisPool;
 import com.redis.monitor.SocketMonitor;
+import com.redis.monitor.redis.RedisCacheServer;
 import com.redis.monitor.web.controller.BaseProfileController;
 
 public class ServerInteceptor extends HandlerInterceptorAdapter {
@@ -21,41 +22,32 @@ public class ServerInteceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
 		//TODO 根据uuid切换到对应的redisManager上
-		String uuid = "";
-		if (request.getRequestURI().equals("change_redis_uri")) {
-			uuid = request.getParameter("uuid");
+		   String uuid = request.getParameter("uuid");
 			if (uuid == null || uuid.equals("")) {
+				Cookie[] cookies = request.getCookies();
+				if (cookies != null && cookies.length > 0) {
+					for (Cookie cookie : cookies) {
+						String name = cookie.getName();
+						if (name.equals("uuid")) {
+							uuid = cookie.getValue();
+							break;
+						}
+					}
+		
+			
+			if (uuid == null || uuid.equals("")) {
+				response.sendRedirect("/welcome.html");
 				return false;
-			} else {
-				if (!RedisJedisPool.isExists(uuid)) {
-			         return false;
-				}
 			}
-		} else {
-			Cookie[] cookies = request.getCookies();
-			if (cookies != null && cookies.length > 0) {
-				for (Cookie cookie : cookies) {
-					String name = cookie.getName();
-					if (name.equals("uuid")) {
-						uuid = cookie.getValue();
-						break;
-					}
-				}
-			}
-			if (uuid.equals("")) {
-				uuid = request.getParameter("uuid");
-				if (uuid == null || uuid.equals("")) {
-					return false;
-				} else {
-					if (!RedisJedisPool.isExists(uuid)) {
-				         return false;
-					}
-				}
-			}
-		} 
+			
 		if (handler instanceof BaseProfileController) {
-			logger.info("choice redis server :{}",RedisJedisPool.getRedisServer(uuid));
 			RedisCacheThreadLocal.set(uuid);
+			String ping = RedisJedisPool.getRedisCacheServer().ping();
+			if (!ping.equals("PONG")) {
+				response.sendRedirect("/welcome.html");
+				return false;
+            } 
+			logger.info("choice redis server :{}",RedisJedisPool.getRedisServer(uuid));
 		}
 		return super.preHandle(request, response, handler);
 	}

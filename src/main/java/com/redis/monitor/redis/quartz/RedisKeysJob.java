@@ -19,10 +19,5 @@ public class RedisKeysJob extends AbstractRedisJob {
 		map.put("dbSize", dbSize);
 		return map;
 	}
-	
-	
-	
-	
-	
 
 }

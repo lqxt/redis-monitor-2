@@ -4,17 +4,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ibm.icu.text.SimpleDateFormat;
 import com.redis.monitor.RedisJedisPool;
 import com.redis.monitor.json.FastJson;
 import com.redis.monitor.redis.BasicRedisCacheServer;
@@ -68,13 +67,22 @@ public abstract class AbstractRedisJob implements RedisJob {
 				}
 
 				BasicRedisCacheServer redisCacheServer = RedisJedisPool.getRedisCacheServer(key);
-				Map<String,Object> map = getSaveData(redisCacheServer);
+				Object obj = getSaveData(redisCacheServer);
 				
-				if (map != null && map.size() > 0) {
+				if (obj != null) {
 					try {
-						String json = FastJson.toJson(map);
-						logger.debug("save date to monitor file,file name :{}, data : {} ",new Object[]{file.getName(),json});
-						IOUtils.write(json + "\n",outputStream);
+						StringBuffer sb = new StringBuffer();
+						if (obj instanceof List) {
+							for (Object o : (List)obj) {
+							  String json = FastJson.toJson(o);
+							  sb.append(json + "\n");
+							}
+						} else {
+							String json = FastJson.toJson(obj);
+							sb.append(json).append("\n");
+						}
+						logger.debug("save date to monitor file,file name :{}, data : {} ",new Object[]{file.getName(),sb.toString()});
+						IOUtils.write(sb.toString(),outputStream);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -84,7 +92,7 @@ public abstract class AbstractRedisJob implements RedisJob {
 		}
 	}
 	
-	protected abstract Map<String,Object> getSaveData(BasicRedisCacheServer redisCacheServer);
+	protected abstract Object getSaveData(BasicRedisCacheServer redisCacheServer);
 
 	public String getPreffix() {
 		return preffix;

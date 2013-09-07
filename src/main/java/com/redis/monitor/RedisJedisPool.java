@@ -1,6 +1,5 @@
 package com.redis.monitor;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -55,10 +54,6 @@ public class RedisJedisPool {
 	
 	public static RedisServer getRedisServer(String uuid) {
 		return map.get(uuid).getRedisServer();
-	}
-	
-	public static String getDefaultUuid() {
-		return DEFAULT_UUID;
 	}
 	
 	public static RedisServer getRedisServer() {

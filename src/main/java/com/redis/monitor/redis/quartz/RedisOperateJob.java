@@ -1,32 +1,46 @@
 package com.redis.monitor.redis.quartz;
 
-import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 
 import redis.clients.util.Slowlog;
 
+import com.redis.monitor.entity.Operate;
+import com.redis.monitor.json.FastJson;
 import com.redis.monitor.redis.BasicRedisCacheServer;
 
 public class RedisOperateJob extends AbstractRedisJob {
 
 	@Override
-	protected Map<String,Object> getSaveData(BasicRedisCacheServer redisCacheServer) {
+	protected Object getSaveData(BasicRedisCacheServer redisCacheServer) {
 		List<Slowlog> list = redisCacheServer.slowlogs();
-		Map<String,Object> map  = null;
+		
+		List<Operate> opList = null;
+		Operate op  = null;
+		boolean flag = false;
 		if (list != null && list.size() > 0) {
-			map = new HashMap<String, Object>(); 
+			opList = new LinkedList<Operate>();
 			for (Slowlog sl : list) {
-				map.put("id", sl.getId());
-				map.put("create_time", getDateStr());
-				map.put("execute_time", getDateStr(sl.getTimeStamp()));
-				map.put("used_time", sl.getExecutionTime() + "μs");
-				map.put("args", sl.getArgs());
+				String args = FastJson.toJson(sl.getArgs());
+				if (args.equals("[\"PING\"]") || args.equals("[\"SLOWLOG\",\"get\"]") || args.equals("[\"DBSIZE\"]") || args.equals("[\"INFO\"]")) {
+					continue;
+				}	
+				op = new Operate();
+				flag = true;
+				op.setId(sl.getId());
+				op.setCreateTime(getDateStr());
+				op.setExecuteTime(getDateStr(sl.getTimeStamp() * 1000));
+				op.setUsedTime(sl.getExecutionTime() + "μs");
+				op.setArgs(args);
+				
+				opList.add(op);
 			}
 		} 
-		return map;
-		
+		if (flag) 
+			return opList;
+		else 
+			return null;
 		
 	}
 
