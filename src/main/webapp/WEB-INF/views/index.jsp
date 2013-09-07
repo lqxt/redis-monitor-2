@@ -27,7 +27,7 @@
 						<tbody>
 						  <c:forEach var="r" items="${rifList}">
 						       <tr>
-								  <td title="${r.desctiption }">${r.key}</td> 
+								  <td title="${r.key}:${r.desctiption }">${fn:substring(r.key, 0, 13)}</td> 
 								  <td>${r.value}</td>
 							   </tr>
 						  </c:forEach> 

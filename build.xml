@@ -40,5 +40,9 @@
 		</copy>
 	</target>
 
-	<target name="deploy" depends="" />
+	<target name="deploy" depends="" >
+		<ant target="copyResources"></ant>
+		<ant target="copyLib"></ant>
+		<ant target="copyClass"></ant>
+	</target>
 </project>

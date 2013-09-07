@@ -16,6 +16,7 @@ public class JettyServer {
 	       context.setDescriptor(webapp + "/WEB-INF/web.xml");                //指定web.xml文件，可选
 	       context.setResourceBase(webapp);                               //设置项目路径
 	       context.setContextPath("/");                                   //设置上下文根，可以任意的值
+	       context.setWelcomeFiles(new String[]{"main.jsp"});             //设置欢迎页面
 	       server.setHandler(context);                                    //设置句柄
 	       server.start();                                                //启动
 	       server.join();

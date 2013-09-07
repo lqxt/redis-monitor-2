@@ -24,7 +24,7 @@ public class RedisPoolController extends BaseProfileController {
 		
 	}
 	
-	@RequestMapping(value="/${uuid}/checked.htm",method=RequestMethod.GET)
+	@RequestMapping(value="/checked.htm",method=RequestMethod.GET)
 	public void checkedPool(HttpServletRequest request,HttpServletResponse response,@PathVariable String uuid) {
 		Cookie cookie = new Cookie("uuid", uuid);
 		response.addCookie(cookie);
