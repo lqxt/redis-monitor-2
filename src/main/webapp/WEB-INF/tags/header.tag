@@ -24,14 +24,15 @@
 					<li><a href="#">keys</a></li>
 					<li><a href="#">redis-config.xml</a></li>
 					<li><a href="#">redis节点管理</a></li>
+					<li><a href="#">redis实时监控</a></li>
 				</ul>
 				<ul class="nav pull-right">
-					<li class="active"><a href="#"><font size="5">redis://127.0.0.1:6379</font></a></li>
+					<li class="active"><a href="#"><font size="5">redis://${redisServerList[0].host}:${redisServerList[0].port}</font></a></li>
 					<li class="divider-vertical"></li>
-					<li><button class="btn btn-small btn-primary">flushall</button></li>
+					<li><button class="btn btn-small btn-primary" id="flushall">flushall</button></li>
 					<li class="divider-vertical"></li>
 					<li>
-						<button class="btn btn-small btn-primary">flushDB</button>
+						<button class="btn btn-small btn-primary" id="flushdb">flushDB</button>
 					</li>
 				</ul>
 			</div>

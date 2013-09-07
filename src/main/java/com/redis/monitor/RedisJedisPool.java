@@ -2,6 +2,7 @@ package com.redis.monitor;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -65,7 +66,7 @@ public class RedisJedisPool {
 	}
 	
 	public static List<RedisServer> getAllRedisServer() {
-		List<RedisServer> rsList = new ArrayList<RedisServer>();
+		List<RedisServer> rsList = new LinkedList<RedisServer>();
 		for (Iterator<String> itr = map.keySet().iterator(); itr.hasNext();) {
 			String key = itr.next();
 			rsList.add(map.get(key).getRedisServer());
