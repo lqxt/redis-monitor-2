@@ -73,11 +73,11 @@ public class RedisManagerImpl implements RedisManager {
 	}
 
 	public String flushAll() {
-		return null;
+		return getBasicRedisCacheServer().flushAll();
 	}
 
 	public String flushDb() {
-		return null;
+		return  getBasicRedisCacheServer().flushDb();
 	}
 	
 	public List<Operate> findAllOperateDetail() {

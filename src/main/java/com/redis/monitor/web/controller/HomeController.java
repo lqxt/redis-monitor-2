@@ -43,5 +43,23 @@ public class HomeController  extends BaseProfileController {
 		return mv;
 	}
 	
+	@RequestMapping(value="/flushall.htm",method=RequestMethod.GET)
+	public ModelAndView flushall() {
+		ModelAndView mv = getJsonModelAndView();
+		String result = redisManager.flushAll();
+		mv.addObject("statu", result);
+		mv.addObject("msg","刷新成功");
+		return mv;
+	}
+	
+	@RequestMapping(value="/flushDb.htm",method=RequestMethod.GET)
+	public ModelAndView flushDb() {
+		ModelAndView mv = getJsonModelAndView();
+		String result = redisManager.flushDb();
+		mv.addObject("statu", result);
+		mv.addObject("msg","刷新成功");
+		return mv;
+	}
+	
 
 }

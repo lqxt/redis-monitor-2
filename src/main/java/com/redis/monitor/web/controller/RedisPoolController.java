@@ -31,6 +31,5 @@ public class RedisPoolController extends BaseProfileController {
 	public ModelAndView addRedisServer(@ModelAttribute RedisServer redisServer) {
 		return null;
 	}
-
 }
 
