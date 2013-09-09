@@ -28,20 +28,25 @@ public class SocketMonitor {
 		}
 	}
 	
-	public static void set(Client client) {
-		try {
-			BlockingQueue<String> blockingQueue = map.get(RedisCacheThreadLocal.getUuid());
-			if (blockingQueue == null) {
-				blockingQueue = new LinkedBlockingQueue<String>();
-				map.put(RedisCacheThreadLocal.getUuid(), blockingQueue);
+	public static void set(final Client client) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					BlockingQueue<String> blockingQueue = map.get(RedisCacheThreadLocal.getUuid());
+					if (!clientMap.containsKey(RedisCacheThreadLocal.getUuid()))  clientMap.put(RedisCacheThreadLocal.getUuid(), client);
+					if (blockingQueue == null) {
+						blockingQueue = new LinkedBlockingQueue<String>();
+						map.put(RedisCacheThreadLocal.getUuid(), blockingQueue);
+					}
+					blockingQueue.put(client.getBulkReply());
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
-			blockingQueue.put(client.getBulkReply());
-			
-			if (!clientMap.containsKey(RedisCacheThreadLocal.getUuid()))  clientMap.put(RedisCacheThreadLocal.getUuid(), client);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		});
 	}
+		
 	
 	public static void disconnectClient() {
 		Client client = clientMap.get(RedisCacheThreadLocal.getUuid());
