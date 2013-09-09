@@ -44,7 +44,11 @@ public class SocketMonitor {
 	}
 	
 	public static void disconnectClient() {
-		clientMap.remove(RedisCacheThreadLocal.getUuid());
+		Client client = clientMap.get(RedisCacheThreadLocal.getUuid());
+		if (client != null) {
+			client.disconnect();
+			clientMap.remove(RedisCacheThreadLocal.getUuid());
+		}
 	}
 	
 	public static String getData() throws Exception {
