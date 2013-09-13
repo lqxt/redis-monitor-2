@@ -29,15 +29,16 @@ public class SocketMonitor {
 	}
 	
 	public static void set(final Client client) {
+		final String uuid = RedisCacheThreadLocal.getUuid();
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				try {
-					BlockingQueue<String> blockingQueue = map.get(RedisCacheThreadLocal.getUuid());
-					if (!clientMap.containsKey(RedisCacheThreadLocal.getUuid()))  clientMap.put(RedisCacheThreadLocal.getUuid(), client);
+					BlockingQueue<String> blockingQueue = map.get(uuid);
+					if (!clientMap.containsKey(uuid))  clientMap.put(uuid, client);
 					if (blockingQueue == null) {
 						blockingQueue = new LinkedBlockingQueue<String>();
-						map.put(RedisCacheThreadLocal.getUuid(), blockingQueue);
+						map.put(uuid, blockingQueue);
 					}
 					blockingQueue.put(client.getBulkReply());
 				} catch (InterruptedException e) {
