@@ -1,7 +1,10 @@
 package com.redis.monitor;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -29,22 +32,24 @@ public class SocketMonitor {
 	}
 	
 	public static void set(final Client client) {
+		final String uuid = RedisCacheThreadLocal.getUuid();
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				try {
-					BlockingQueue<String> blockingQueue = map.get(RedisCacheThreadLocal.getUuid());
-					if (!clientMap.containsKey(RedisCacheThreadLocal.getUuid()))  clientMap.put(RedisCacheThreadLocal.getUuid(), client);
+					BlockingQueue<String> blockingQueue = map.get(uuid);
+					if (!clientMap.containsKey(uuid))  clientMap.put(uuid, client);
 					if (blockingQueue == null) {
 						blockingQueue = new LinkedBlockingQueue<String>();
-						map.put(RedisCacheThreadLocal.getUuid(), blockingQueue);
+						map.put(uuid, blockingQueue);
 					}
 					blockingQueue.put(client.getBulkReply());
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
-		});
+		}).start(); 
+
 	}
 		
 	
@@ -56,8 +61,30 @@ public class SocketMonitor {
 		}
 	}
 	
+	public static void disconnectClient(String uuid) {
+		
+		Client client = clientMap.get(uuid) ;
+		if (client != null) {
+			client.disconnect();
+			clientMap.remove(RedisCacheThreadLocal.getUuid());
+		}
+	}
+	
 	public static String getData() throws Exception {
 		return map.get(RedisCacheThreadLocal.getUuid()).take();
+	}
+	
+	public static List<String> getData(String uuid ) throws Exception {
+		List<String> resList = new ArrayList<String>() ;
+		Queue<String> queue = map.get(RedisJedisPool.getRedisServer(uuid));
+		while(true){
+			String obj = queue.poll() ;
+			if(obj == null || resList.size() > 100 ) {
+				break ;
+			}
+			resList.add(obj) ;
+		}
+		return resList ;
 	}
 	
 	public static void clear() {
