@@ -14,8 +14,8 @@ import redis.clients.jedis.Client;
 
 public class SocketMonitor {
 	
-	private static Map<String, BlockingQueue<String>> map = new ConcurrentHashMap<String, BlockingQueue<String>>();
-	private static Map<String,Client> clientMap = new ConcurrentHashMap<String, Client>();
+	private static final Map<String, BlockingQueue<String>> map = new ConcurrentHashMap<String, BlockingQueue<String>>();
+	private static final Map<String,Client> clientMap = new ConcurrentHashMap<String, Client>();
 	
 	
 	public static void set(String data) {
@@ -53,23 +53,28 @@ public class SocketMonitor {
 	
 	public static void set(final Client client) {
 		final String uuid = RedisCacheThreadLocal.getUuid();
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					BlockingQueue<String> blockingQueue = map.get(uuid);
-					if (!clientMap.containsKey(uuid))  clientMap.put(uuid, client);
-					if (blockingQueue == null) {
-						blockingQueue = new LinkedBlockingQueue<String>();
-						map.put(uuid, blockingQueue);
+		BlockingQueue<String> blockingQueue = map.get(uuid);
+		if (!clientMap.containsKey(uuid))  clientMap.put(uuid, client);
+		boolean flag = false;
+		if (blockingQueue == null) {
+			flag = true;
+			blockingQueue = new LinkedBlockingQueue<String>();
+			map.put(uuid, blockingQueue);
+		}
+		
+		if (flag) {
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						System.out.println("###:" + client.getBulkReply());
+						map.get(uuid).put(client.getBulkReply());
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
 					}
-					blockingQueue.put(client.getBulkReply());
-				} catch (InterruptedException e) {
-					e.printStackTrace();
 				}
-			}
-		}).start(); 
-
+			}).start(); 
+		}
 	}
 		
 	

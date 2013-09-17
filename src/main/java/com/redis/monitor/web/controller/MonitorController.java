@@ -44,11 +44,12 @@ public class MonitorController extends BaseProfileController{
 		Map<String , Object> res = new HashMap<String , Object>() ;
 		res.put("status", 0) ;
 		try{
-			new Thread(new Runnable() {
+			/*new Thread(new Runnable() {
 				public void run() {
 					redisManager.startMonitor(uuid) ;	
 				}
-			}).start() ;
+			}).start() ;*/
+			redisManager.startMonitor(uuid) ;	
 		} catch(Exception e ) {
 			res.put("status", 1) ;
 			res.put("message", "开始监控时发生错误") ;
