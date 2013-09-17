@@ -104,7 +104,7 @@ public class RedisManagerImpl implements RedisManager {
 	 * start to monitor redis
 	 */
 	public void startMonitor(String uuid) {
-		getBasicRedisCacheServer(uuid).monitor(); 
+		getBasicRedisCacheServer(uuid).monitor(uuid); 
 	}
 	
 	public void stopMonitor(String uuid) {
