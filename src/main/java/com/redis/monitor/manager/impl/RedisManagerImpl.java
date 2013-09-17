@@ -19,6 +19,7 @@ import com.redis.monitor.RedisConfigXml;
 import com.redis.monitor.RedisInfoDetail;
 import com.redis.monitor.RedisJedisPool;
 import com.redis.monitor.RedisServer;
+import com.redis.monitor.SocketMonitor;
 import com.redis.monitor.entity.Operate;
 import com.redis.monitor.entity.OperateCompare;
 import com.redis.monitor.json.FastJson;
@@ -99,7 +100,22 @@ public class RedisManagerImpl implements RedisManager {
 		return opList;
 	}
 
+	/**
+	 * start to monitor redis
+	 */
+	public void startMonitor(String uuid) {
+		getBasicRedisCacheServer(uuid).monitor(); 
+	}
+	
+	public void stopMonitor(String uuid) {
+		SocketMonitor.disconnectClient(); 
+	}
+	
 	public BasicRedisCacheServer getBasicRedisCacheServer() {
 		return RedisCacheThreadLocal.get();
+	}
+	
+	public BasicRedisCacheServer getBasicRedisCacheServer(String uuid ) {
+		return RedisJedisPool.getRedisCacheServer(uuid) ;
 	}
 }

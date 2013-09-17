@@ -32,8 +32,9 @@ public interface RedisManager {
 	
 	public List<Operate> findAllOperateDetail();
 	
+	public void startMonitor(String uuid);
 	
-	
+	public void stopMonitor(String uuid) ;
 	
 }
 
