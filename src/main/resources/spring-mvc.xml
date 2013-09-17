@@ -25,6 +25,9 @@
 	<beans:bean
 		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 	</beans:bean>
+	
+	<beans:bean id="jsonView" class="com.redis.monitor.web.view.CilentJsonView" />
+	
 	<beans:bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/"></beans:property>
@@ -36,5 +39,4 @@
 		<beans:property name="order" value="1" />
 	</beans:bean>
 
-	<beans:bean id="jsonView" class="com.redis.monitor.web.view.CilentJsonView" />
 </beans:beans>
