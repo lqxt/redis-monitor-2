@@ -55,6 +55,8 @@ public interface BasicRedisCacheServer {
 	
 	public String flushDb();
 	
+	public void monitor(String uuid ) ;
+	
 	public void monitor();
 	
 	public List<String> configGet(String pattern);

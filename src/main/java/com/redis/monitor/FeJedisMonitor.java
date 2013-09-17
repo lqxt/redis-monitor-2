@@ -10,6 +10,22 @@ public  class FeJedisMonitor extends JedisMonitor {
 	
 	private long beginTime = System.currentTimeMillis();
 	
+	public void proceed(Client client ,  String uuid) {
+		this.client = client;
+		this.client.setTimeoutInfinite();
+		do {
+			long nowTime = System.currentTimeMillis();
+			if ((nowTime - beginTime) > ifNoDataWhenFree) {
+				beginTime = nowTime;
+				try {
+					Thread.sleep(sleepTime);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			SocketMonitor.set(client , uuid);
+		} while (client.isConnected());
+	}
 	public void proceed(Client client) {
         this.client = client;
         this.client.setTimeoutInfinite();

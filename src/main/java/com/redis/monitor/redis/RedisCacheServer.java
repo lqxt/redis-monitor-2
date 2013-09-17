@@ -294,6 +294,20 @@ public class RedisCacheServer implements BasicRedisCacheServer {
 		}
 	}
 	
+	public void monitor(String uuid ) {
+		Jedis jedis = null;
+		try {
+			jedis = jedisPool.getResource();
+			FeJedisMonitor jm = new FeJedisMonitor();
+			Client client = jedis.getClient();
+			client.monitor();
+			jm.proceed(client , uuid);
+		} finally {
+			if (jedis != null)
+				jedisPool.returnResource(jedis);
+		}
+	}
+	
 	public void monitor() {
 		Jedis jedis = null;
 		try {
