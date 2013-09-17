@@ -81,6 +81,10 @@
 	background-color: black;
 	color: yellow;
 	padding: 10px;
+	overflow-x: auto;
+}
+.e-log .e-console span{
+	display: block;
 }
 
 .e-log .e-control{
