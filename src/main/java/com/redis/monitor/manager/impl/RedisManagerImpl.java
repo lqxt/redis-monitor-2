@@ -11,11 +11,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.io.IOUtils; 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.redis.monitor.Constants;
 import com.redis.monitor.RedisCacheThreadLocal;
 import com.redis.monitor.RedisConfig;
 import com.redis.monitor.RedisInfoDetail;
