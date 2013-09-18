@@ -9,12 +9,12 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.redis.monitor.Constants;
 import com.redis.monitor.RedisCacheThreadLocal;
 import com.redis.monitor.RedisConfig;
 import com.redis.monitor.RedisInfoDetail;
@@ -111,6 +111,10 @@ public class RedisManagerImpl implements RedisManager {
 			e.printStackTrace();
 		}
 		return opList;
+	}
+	
+	public Set<String> getKeysByPattern(String uuid , String patternKey) {
+		return getBasicRedisCacheServer(uuid).getKeysByPattern(patternKey) ; 
 	}
 
 	/**

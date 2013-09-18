@@ -25,7 +25,7 @@
 					<li><a href="#">keys</a></li>
 					<li><a href="/config/toConfigDetail.htm">redis-config.xml</a></li>
 					<li><a href="#">redis节点管理</a></li>
-					<li><a href="#">redis实时监控</a></li>
+					<li><a href="/monitor.htm">redis实时监控</a></li>
 				</ul>
 				<ul class="nav pull-right">
 					<li class="active"><a href="#"><font size="5">redis://${host }:${port }</font></a></li>

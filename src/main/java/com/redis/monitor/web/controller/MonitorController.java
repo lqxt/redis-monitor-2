@@ -26,11 +26,12 @@ public class MonitorController extends BaseProfileController{
 	public ModelAndView monitorData(@RequestParam final String uuid){
 		try {
 			List<String> data = null ;
-			data = new ArrayList<String>() ;
+			data = SocketMonitor.getDataList() ;
+			/*data = new ArrayList<String>() ;
 			String time = DateFormatUtils.format(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss") ;
 			data.add(time + " keys 100us " ) ;
 			data.add(time + " dbsize 110us " ) ;
-			data.add(time + " hget 43us " ) ;
+			data.add(time + " hget 43us " ) ;*/
 			
 			return putModel(data) ;
 		} catch (Exception e) {
@@ -44,11 +45,6 @@ public class MonitorController extends BaseProfileController{
 		Map<String , Object> res = new HashMap<String , Object>() ;
 		res.put("status", 0) ;
 		try{
-			/*new Thread(new Runnable() {
-				public void run() {
-					redisManager.startMonitor(uuid) ;	
-				}
-			}).start() ;*/
 			redisManager.startMonitor(uuid) ;	
 		} catch(Exception e ) {
 			res.put("status", 1) ;

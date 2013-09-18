@@ -10,6 +10,9 @@
 	<script type="text/javascript" src="/resources/bootstrap/js/bootstrap-scrollspy.js"></script>
 	<script type="text/javascript" src="/resources/bootstrap/js/bootstrap-button.js"></script>
 	<script type="text/javascript" src="/js/monitor/monitor.js"></script>
+	<script>
+		uuid = '${param.uuid}' ;
+	</script>
 </head>
 <body>
 	<pubTag:header/>
@@ -28,7 +31,6 @@
 			 </div>
 		</div>
 		<div class="container e-console" id="log">
-			log----->>log1
 		</div>
 		<!--/row-->
 	</div>

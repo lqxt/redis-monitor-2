@@ -2,8 +2,7 @@ package com.redis.monitor.manager;
 
 import java.util.List;
 import java.util.Map;
-
-import redis.clients.util.Slowlog;
+import java.util.Set;
 
 import com.redis.monitor.RedisConfig;
 import com.redis.monitor.RedisInfoDetail;
@@ -36,5 +35,5 @@ public interface RedisManager {
 	
 	public void stopMonitor(String uuid) ;
 	
+	public Set<String> getKeysByPattern(String uuid , String patternKey) ;
 }
-
