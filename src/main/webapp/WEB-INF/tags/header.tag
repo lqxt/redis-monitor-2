@@ -23,17 +23,17 @@
 							<li><a href="#three">飞路快poi读服务</a></li> -->
 						</ul></li>
 					<li><a href="#">keys</a></li>
-					<li><a href="#">redis-config.xml</a></li>
+					<li><a href="/config/toConfigDetail.htm">redis-config.xml</a></li>
 					<li><a href="#">redis节点管理</a></li>
-					<li><a href="#">redis实时监控</a></li>
+					<li><a href="/monitor.htm">redis实时监控</a></li>
 				</ul>
 				<ul class="nav pull-right">
 					<li class="active"><a href="#"><font size="5">redis://${host }:${port }</font></a></li>
 					<li class="divider-vertical"></li>
-					<li><button class="btn btn-small btn-primary" id="flushall">flushall</button></li>
+					<li><button class="btn btn-small btn-primary" id="flushall" value="${id }">flushall</button></li>
 					<li class="divider-vertical"></li>
 					<li>
-						<button class="btn btn-small btn-primary" id="flushdb">flushDB</button>
+						<button class="btn btn-small btn-primary" id="flushdb" value="${id }">flushDB</button>
 					</li>
 				</ul>
 			</div>
