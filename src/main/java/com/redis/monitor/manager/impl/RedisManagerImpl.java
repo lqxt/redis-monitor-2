@@ -6,8 +6,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -15,7 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import com.redis.monitor.Constants;
 import com.redis.monitor.RedisCacheThreadLocal;
-import com.redis.monitor.RedisConfigXml;
+import com.redis.monitor.RedisConfig;
 import com.redis.monitor.RedisInfoDetail;
 import com.redis.monitor.RedisJedisPool;
 import com.redis.monitor.RedisServer;
@@ -53,8 +55,20 @@ public class RedisManagerImpl implements RedisManager {
 		return ridList;
 	}
 
-	public RedisConfigXml getRedisConfigXmlDetail() {
-		return null;
+	public List<RedisConfig> getRedisConfigXmlDetail() {
+		List<String> configList = getBasicRedisCacheServer().configGetAll();
+		int index = 0;
+		List<RedisConfig> list = new LinkedList<RedisConfig>();
+	    for (String str : configList) {
+	    	if (index % 2 == 0) {
+	    		RedisConfig rc = new RedisConfig();
+	    		rc.setKey(str);
+	    		rc.setValue(configList.get(index+1));
+	    		list.add(rc);
+	    	}
+	    	index++;
+	    }
+		return list;
 	}
 
 	public Map<String, String> getRedisConfigByPattern(String pattern) {
@@ -98,6 +112,10 @@ public class RedisManagerImpl implements RedisManager {
 			e.printStackTrace();
 		}
 		return opList;
+	}
+	
+	public Set<String> getKeysByPattern(String uuid , String patternKey) {
+		return getBasicRedisCacheServer(uuid).getKeysByPattern(patternKey) ; 
 	}
 
 	/**
