@@ -2,10 +2,11 @@ package com.redis.monitor.manager;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import redis.clients.util.Slowlog;
 
-import com.redis.monitor.RedisConfigXml;
+import com.redis.monitor.RedisConfig;
 import com.redis.monitor.RedisInfoDetail;
 import com.redis.monitor.RedisServer;
 import com.redis.monitor.entity.Operate;
@@ -16,7 +17,7 @@ public interface RedisManager {
 	
 	public List<RedisInfoDetail> getRedisInfo();
 	
-	public RedisConfigXml getRedisConfigXmlDetail();
+	public List<RedisConfig> getRedisConfigXmlDetail();
 	
 	public Map<String,String> getRedisConfigByPattern(String pattern);
 	
@@ -36,5 +37,6 @@ public interface RedisManager {
 	
 	public void stopMonitor(String uuid) ;
 	
+	public Set<String> getKeysByPattern(String uuid , String patternKey) ;
 }
 
