@@ -35,12 +35,25 @@ $(function(){
 	});
 	
 	function start(){
-		refresh() ;
+		$.getJSON('/monitor/start.htm?uuid=' + uuid , function(data){
+			if(data.status == 0){
+				refresh() ;
+			} else {
+				alert("开始失败") ;
+			}
+		}) ;
 	}
 	
 	function stop(){
-		clearTimeout(window.monitorTimer) ; 
-		isStart = false ;
+		$.getJSON('/monitor/stop.htm?uuid=' + uuid , function(data){
+			if(data.status == 0){
+				clearTimeout(window.monitorTimer) ; 
+				isStart = false ;
+			} else {
+				alert("开始失败") ;
+			}
+		}) ;
+		
 	}
 	
 	function refresh(){
@@ -49,7 +62,7 @@ $(function(){
 			refresh() ;
 		} , 1000 ) ;
 		
-		$.getJSON('/monitor/data.htm?uuid=0101' , function(data){
+		$.getJSON('/monitor/data.htm?uuid=' + uuid , function(data){
 			$.each(data , function(i , v ){
 				count++ ;
 				while(count > bufferSize) {

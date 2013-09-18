@@ -9,6 +9,9 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateFormatUtils;
+
 import com.redis.monitor.redis.BasicRedisCacheServer;
 import com.redis.monitor.redis.RedisCacheServer;
 
@@ -100,15 +103,21 @@ public class SocketMonitor {
 		return map.get(RedisCacheThreadLocal.getUuid()).take();
 	}
 	
-	public static List<String> getData(String uuid ) throws Exception {
+	public static List<String> getDataList() throws Exception {
 		List<String> resList = new ArrayList<String>() ;
-		Queue<String> queue = map.get(RedisJedisPool.getRedisServer(uuid));
+ 		Queue<String> queue = map.get(RedisCacheThreadLocal.getUuid()) ; 
 		while(true){
 			String obj = queue.poll() ;
 			if(obj == null || resList.size() > 100 ) {
 				break ;
 			}
-			resList.add(obj) ;
+			String[] logArr = obj.split(" ") ;
+			if(logArr != null && logArr.length > 0 ) {
+				try{
+					logArr[0] = DateFormatUtils.format(new Double(Double.parseDouble(logArr[0]) * 1000).longValue() , "yyyy-MM-dd HH:mm:ss") ; 
+				}catch(Exception e ) {}
+			}
+			resList.add(StringUtils.join(logArr , " ") ) ;
 		}
 		return resList ;
 	}
