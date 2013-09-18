@@ -1,48 +1,24 @@
 package com.redis.monitor;
 
 import redis.clients.jedis.Client;
+import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisMonitor;
+import redis.clients.jedis.JedisPool;
 
 public  class FeJedisMonitor extends JedisMonitor {
 	
-	private static final int sleepTime = 1000 * 10;
-	private static final int ifNoDataWhenFree = 1000 * 10;
+	private Jedis jedis;
 	
-	private long beginTime = System.currentTimeMillis();
-	
-	public void proceed(Client client ,  String uuid) {
-		this.client = client;
-		this.client.setTimeoutInfinite();
-		do {
-			long nowTime = System.currentTimeMillis();
-			if ((nowTime - beginTime) > ifNoDataWhenFree) {
-				beginTime = nowTime;
-				try {
-					Thread.sleep(sleepTime);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-			SocketMonitor.set(client , uuid);
-		} while (client.isConnected());
+	public FeJedisMonitor(Jedis jedis) {
+		this.jedis = jedis;
 	}
+	
+	
 	public void proceed(Client client) {
-        this.client = client;
-        this.client.setTimeoutInfinite();
-        do {
-        	long nowTime = System.currentTimeMillis();
-        	if ((nowTime - beginTime) > ifNoDataWhenFree) {
-        		beginTime = nowTime;
-        		try {
-					Thread.sleep(sleepTime);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-        	}
-            SocketMonitor.set(client);
-        } while (client.isConnected());
+        SocketMonitor.set(jedis);
     }
-	 public  void onCommand(String command) {
+	
+	public  void onCommand(String command) {
 		 
-	 }
+	}
 }

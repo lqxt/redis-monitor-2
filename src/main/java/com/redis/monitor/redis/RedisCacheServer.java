@@ -15,7 +15,7 @@ import com.redis.monitor.FeJedisMonitor;
 import com.redis.monitor.json.FastJson;
 
 public class RedisCacheServer implements BasicRedisCacheServer {
-	private JedisPool jedisPool;
+	private static JedisPool jedisPool;
 
 	public static final Integer DEFAULT_EXPIRE_TIME = 60 * 60 * 24;
 	
@@ -294,31 +294,18 @@ public class RedisCacheServer implements BasicRedisCacheServer {
 		}
 	}
 	
-	public void monitor(String uuid ) {
-		Jedis jedis = null;
-		try {
-			jedis = jedisPool.getResource();
-			FeJedisMonitor jm = new FeJedisMonitor();
-			Client client = jedis.getClient();
-			client.monitor();
-			jm.proceed(client);
-		} finally {
-			if (jedis != null)
-				jedisPool.returnResource(jedis);
-		}
-	}
 	
 	public void monitor() {
 		Jedis jedis = null;
 		try {
 			jedis = jedisPool.getResource();
-			FeJedisMonitor jm = new FeJedisMonitor();
+			FeJedisMonitor jm = new FeJedisMonitor(jedis);
 			Client client = jedis.getClient();
 			client.monitor();
 			jm.proceed(client);
 		} finally {
-			if (jedis != null)
-				jedisPool.returnResource(jedis);
+			/*if (jedis != null)
+				jedisPool.returnResource(jedis);*/
 		}
 	}
 	
@@ -605,15 +592,8 @@ public class RedisCacheServer implements BasicRedisCacheServer {
 		}
 	}
 
-	public JedisPool getJedisPool() {
+	public static JedisPool getJedisPool() {
 		return jedisPool;
 	}
-
-	public void setJedisPool(JedisPool jedisPool) {
-		this.jedisPool = jedisPool;
-	}
-	
-	
-
 
 }

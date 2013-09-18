@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import redis.clients.jedis.JedisPool;
 import redis.clients.util.Slowlog;
 
 public interface BasicRedisCacheServer {
@@ -54,8 +55,6 @@ public interface BasicRedisCacheServer {
 	public String flushAll();
 	
 	public String flushDb();
-	
-	public void monitor(String uuid ) ;
 	
 	public void monitor();
 	
@@ -114,4 +113,6 @@ public interface BasicRedisCacheServer {
 	public void rpushQueue(String key,String data);
 	
 	public List<Slowlog> slowlogs();
+	
 }
+

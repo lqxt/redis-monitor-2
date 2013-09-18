@@ -4,8 +4,8 @@
       <Redis-Server uuid="0101">
          <name>userWriter</name>
          <description>用户写服务</description>
-         <host>192.168.4.117</host>
-         <port>6380</port>
+         <host>192.168.4.131</host>
+         <port>6379</port>
          <maxActive>300</maxActive>
          <maxIdle>50</maxIdle>
          <maxWait>3000</maxWait>
@@ -15,8 +15,8 @@
             <slave uuid="0102">
                <name>userRead</name>
                <description>用户读服务</description>
-               <host>192.168.4.117</host>
-               <port>6380</port>
+               <host>192.168.4.131</host>
+               <port>6379</port>
                <maxActive>300</maxActive>
                <maxIdle>50</maxIdle>
                <maxWait>3000</maxWait>

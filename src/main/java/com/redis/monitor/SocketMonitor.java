@@ -9,13 +9,17 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import com.redis.monitor.redis.BasicRedisCacheServer;
+import com.redis.monitor.redis.RedisCacheServer;
+
 import redis.clients.jedis.Client;
+import redis.clients.jedis.Jedis;
 
 
 public class SocketMonitor {
 	
 	private static final Map<String, BlockingQueue<String>> map = new ConcurrentHashMap<String, BlockingQueue<String>>();
-	private static final Map<String,Client> clientMap = new ConcurrentHashMap<String, Client>();
+	private static final Map<String,Jedis> clientMap = new ConcurrentHashMap<String, Jedis>();
 	
 	
 	public static void set(String data) {
@@ -31,30 +35,11 @@ public class SocketMonitor {
 		}
 	}
 	
-	public static void set(final Client client , final String uuid) {
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					BlockingQueue<String> blockingQueue = map.get(uuid);
-					if (!clientMap.containsKey(uuid))  clientMap.put(uuid, client);
-					if (blockingQueue == null) {
-						blockingQueue = new LinkedBlockingQueue<String>();
-						map.put(uuid, blockingQueue);
-					}
-					blockingQueue.put(client.getBulkReply());
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}).start(); 
-		
-	}
 	
-	public static void set(final Client client) {
+	public static void set(final Jedis jedis) {
 		final String uuid = RedisCacheThreadLocal.getUuid();
 		BlockingQueue<String> blockingQueue = map.get(uuid);
-		if (!clientMap.containsKey(uuid))  clientMap.put(uuid, client);
+		if (!clientMap.containsKey(uuid))  clientMap.put(uuid, jedis);
 		boolean flag = false;
 		if (blockingQueue == null) {
 			flag = true;
@@ -64,33 +49,49 @@ public class SocketMonitor {
 		
 		if (flag) {
 			new Thread(new Runnable() {
+				private static final int sleepTime = 1000 * 10;
+				private static final int ifNoDataWhenFree = 1000 * 10;
+				private long beginTime = System.currentTimeMillis(); 
 				@Override
 				public void run() {
 					try {
-						System.out.println("###:" + client.getBulkReply());
-						map.get(uuid).put(client.getBulkReply());
+						do {
+							String reply = jedis.getClient().getBulkReply();
+							System.out.println("###:" + reply);
+							long nowTime = System.currentTimeMillis();
+				        	if ((nowTime - beginTime) > ifNoDataWhenFree) {
+				        		beginTime = nowTime;
+				        		try {
+									Thread.sleep(sleepTime);
+								} catch (InterruptedException e) {
+									e.printStackTrace();
+								}
+				        	}
+							map.get(uuid).put(reply);
+						} while (jedis.isConnected());
+						
 					} catch (InterruptedException e1) {
 						e1.printStackTrace();
 					}
 				}
-			}).start(); 
+			},"monitor-thread").start(); 
 		}
 	}
 		
 	
 	public static void disconnectClient() {
-		Client client = clientMap.get(RedisCacheThreadLocal.getUuid());
-		if (client != null) {
-			client.disconnect();
+		Jedis jedis = clientMap.get(RedisCacheThreadLocal.getUuid());
+		if (jedis != null) {
+			RedisCacheServer.getJedisPool().returnResource(jedis);
 			clientMap.remove(RedisCacheThreadLocal.getUuid());
 		}
 	}
 	
 	public static void disconnectClient(String uuid) {
-		
-		Client client = clientMap.get(uuid) ;
-		if (client != null) {
-			client.disconnect();
+		Jedis jedis = clientMap.get(uuid) ;
+		if (jedis != null) {
+			RedisCacheServer.getJedisPool().returnResource(jedis);
+			jedis.getClient().disconnect();
 			clientMap.remove(RedisCacheThreadLocal.getUuid());
 		}
 	}
