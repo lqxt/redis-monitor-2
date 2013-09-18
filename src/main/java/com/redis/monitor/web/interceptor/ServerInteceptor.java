@@ -47,6 +47,10 @@ public class ServerInteceptor extends HandlerInterceptorAdapter {
 		if (handler instanceof BaseProfileController) {
 			RedisCacheThreadLocal.set(uuid);
 			String ping = RedisJedisPool.getRedisCacheServer().ping();
+			
+			request.setAttribute("host",RedisJedisPool.getRedisServer().getHost());
+			request.setAttribute("port", RedisJedisPool.getRedisServer().getPort());
+			request.setAttribute("uuid", uuid);
 			if (!ping.equals("PONG")) {
 				response.sendRedirect("/welcome.html");
 				return false;
@@ -61,8 +65,7 @@ public class ServerInteceptor extends HandlerInterceptorAdapter {
 	public void afterCompletion(HttpServletRequest request,
 			HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
-		Cookie cookie = new Cookie("uuid", RedisCacheThreadLocal.getUuid());
-		response.addCookie(cookie);
+	
 		// TODO 清除上下文
 		RedisCacheThreadLocal.remove();
 		super.afterCompletion(request, response, handler, ex);

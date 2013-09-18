@@ -140,11 +140,10 @@ public class RedisConfigInit {
 	}
 	
 	public static void main(String[] args) {
-		//new RedisConfigInit().resolveXml();
-		//BasicRedisCacheServer brc =RedisJedisPool.getRedisCacheServer("0101");
-		long l = 1378543488107l;
-		Date date = new Date(l);
-		System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date));
+		new RedisConfigInit().resolveXml();
+		BasicRedisCacheServer brc =RedisJedisPool.getRedisCacheServer("0101");
+		System.out.println(brc.configGetAll());
+		System.out.println(2%2);
 	}
 
 }

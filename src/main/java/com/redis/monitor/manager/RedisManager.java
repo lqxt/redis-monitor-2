@@ -5,7 +5,7 @@ import java.util.Map;
 
 import redis.clients.util.Slowlog;
 
-import com.redis.monitor.RedisConfigXml;
+import com.redis.monitor.RedisConfig;
 import com.redis.monitor.RedisInfoDetail;
 import com.redis.monitor.RedisServer;
 import com.redis.monitor.entity.Operate;
@@ -16,7 +16,7 @@ public interface RedisManager {
 	
 	public List<RedisInfoDetail> getRedisInfo();
 	
-	public RedisConfigXml getRedisConfigXmlDetail();
+	public List<RedisConfig> getRedisConfigXmlDetail();
 	
 	public Map<String,String> getRedisConfigByPattern(String pattern);
 	
