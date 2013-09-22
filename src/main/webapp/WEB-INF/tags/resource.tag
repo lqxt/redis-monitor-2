@@ -4,5 +4,5 @@
 <link href="/css/style.css" rel="stylesheet">
 <script type="text/javascript" src="/js/jquery/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" >
-var $j = $.noConflict();
+//var $j = $.noConflict();
 </script>

@@ -22,7 +22,7 @@
 							<li><a href="#three">飞路快poi写服务</a></li>
 							<li><a href="#three">飞路快poi读服务</a></li> -->
 						</ul></li>
-					<li><a href="#">keys</a></li>
+					<li><a href="/keys.htm">keys</a></li>
 					<li><a href="/config/toConfigDetail.htm">redis-config.xml</a></li>
 					<li><a href="/server/redisServer.htm">redis节点管理</a></li>
 					<li><a href="/monitor.htm">redis实时监控</a></li>
