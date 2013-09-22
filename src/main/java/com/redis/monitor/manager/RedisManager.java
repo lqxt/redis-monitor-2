@@ -36,4 +36,12 @@ public interface RedisManager {
 	public void stopMonitor(String uuid) ;
 	
 	public Set<String> getKeysByPattern(String uuid , String patternKey) ;
+
+	public String get(String key);
+	
+	public Map<String, String> getMap(String key) ;
+
+	public List<String> getList(String key);
+
+	public Set<String> getSet(String key);
 }
