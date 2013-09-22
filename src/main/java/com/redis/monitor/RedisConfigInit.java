@@ -3,6 +3,7 @@ package com.redis.monitor;
 import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -32,7 +33,6 @@ public class RedisConfigInit {
 	public static String FILE_PATH = "";
 	public static String FILE_NAME = DEFAULT_FILE_NAME;
 	
-	public static int LOAD_SIZE = 0;
 	
 	private List<RedisServer> listRS;
 	
@@ -77,9 +77,6 @@ public class RedisConfigInit {
 					RedisServer slaveRs = convertElementToRs(slave);
 					slaveRs.setMasterRedisServer(rs);
 					slaveList.add(convertElementToRs(slave));
-					
-					//TODO 服务计数器
-					LOAD_SIZE++;
 				}
 				
 				rs.setSlaveRedisServer(slaveList);
@@ -122,19 +119,13 @@ public class RedisConfigInit {
 	/**
 	 * 服务器停止,或者定时将新加的redis配置写入文件
 	 */
-	public void createConfigXml() {
-		List<RedisServer> rsList = RedisJedisPool.getAllRedisServer();
-		if (rsList != null && rsList.size() > 0) {
-			int index = 0;
-			for (RedisServer rs : rsList) {
-				for (RedisServer s : rs.getSlaveRedisServer()) {
-					index++;
-				}
-			}
-			
+	public static void rewriteConfigXml() {
+		Collection<Redis> rList = RedisJedisPool.getAllRedis();
+		if (rList != null && rList.size() > 0) {
 			//TODO 如果有新的服务加入
-			if (index > LOAD_SIZE) {
+			if (rList.size() > RedisJedisPool.LOAD_SIZE) {
 				logger.info("has new server,begin buid Redis-Server-Config.xml");
+				
 			}
 		}
 	}

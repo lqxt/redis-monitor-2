@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.redis.monitor.Constants;
+import com.redis.monitor.RedisCacheThreadLocal;
 import com.redis.monitor.manager.RedisManager;
 
 
@@ -28,5 +29,9 @@ public class BaseProfileController extends AbstractController {
 
 	public void setRedisManager(RedisManager redisManager) {
 		this.redisManager = redisManager;
+	}
+	
+	protected String getUuid() {
+		return RedisCacheThreadLocal.getUuid();
 	}
 }

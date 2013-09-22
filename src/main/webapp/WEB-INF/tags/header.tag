@@ -24,7 +24,7 @@
 						</ul></li>
 					<li><a href="#">keys</a></li>
 					<li><a href="/config/toConfigDetail.htm">redis-config.xml</a></li>
-					<li><a href="#">redis节点管理</a></li>
+					<li><a href="/server/redisServer.htm">redis节点管理</a></li>
 					<li><a href="/monitor.htm">redis实时监控</a></li>
 				</ul>
 				<ul class="nav pull-right">

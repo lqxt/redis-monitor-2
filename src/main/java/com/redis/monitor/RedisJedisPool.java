@@ -1,5 +1,7 @@
 package com.redis.monitor;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,6 +20,8 @@ public class RedisJedisPool {
 	
 	public static final String DEFAULT_UUID = Constants.DEFAULT_UUID;
 	
+	public static int LOAD_SIZE = 0;
+	
 	public RedisJedisPool () {}
 
 	public static void initRedisJedisPool(List<RedisServer> rsList) {
@@ -34,6 +38,7 @@ public class RedisJedisPool {
 				map.put(slRs.getUuid(), redis);
 			}
 		}
+		LOAD_SIZE = map.size();
 	}
 	
 	public static void addNewRedisServer(RedisServer rs) {
@@ -61,7 +66,7 @@ public class RedisJedisPool {
 	}
 	
 	public static List<RedisServer> getAllRedisServer() {
-		List<RedisServer> rsList = new LinkedList<RedisServer>();
+		List<RedisServer> rsList = new ArrayList<RedisServer>();
 		for (Iterator<String> itr = map.keySet().iterator(); itr.hasNext();) {
 			String key = itr.next();
 			rsList.add(map.get(key).getRedisServer());
@@ -75,6 +80,10 @@ public class RedisJedisPool {
 	
 	public static Set<String> getRedisUuids() {
 		return map.keySet();
+	}
+	
+	public static Collection<Redis> getAllRedis() {
+		return map.values();
 	}
 	
 }
