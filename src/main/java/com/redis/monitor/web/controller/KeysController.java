@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.collections.ListUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -23,8 +22,9 @@ public class KeysController extends BaseProfileController{
 	}
 	
 	@RequestMapping("/keys/getByPattern.htm")
-	public ModelAndView getByPattern(@RequestParam String uuid , @RequestParam(required=false) String patternKey){
+	public ModelAndView getByPattern(@RequestParam(required=false) String patternKey){
 		try {
+			String uuid  = getUuid() ;
 			Set<String> keySet = redisManager.getKeysByPattern(uuid, patternKey) ;
 			
 			return putModel(keySet) ;
@@ -35,7 +35,7 @@ public class KeysController extends BaseProfileController{
 	}
 	
 	@RequestMapping("/keys/value.htm")
-	public ModelAndView value(@RequestParam String key , @RequestParam String type){
+	public ModelAndView value(@RequestParam String key){
 		Map<String , Object> res = new HashMap<String , Object>() ;
 		res.put("status", 0) ;
 		boolean isOk = false ;

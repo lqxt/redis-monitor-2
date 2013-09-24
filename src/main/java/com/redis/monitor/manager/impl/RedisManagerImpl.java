@@ -119,21 +119,37 @@ public class RedisManagerImpl implements RedisManager {
 	
 	@Override
 	public String get(String key ) {
-		return getBasicRedisCacheServer().get(key) ;
+		try{
+			return getBasicRedisCacheServer().get(key) ;
+		} catch(Exception e) {
+			return null ;
+		}
 	}
 
 	public Map<String, String> getMap(String key) {
-		return getBasicRedisCacheServer().getMap(key) ;
+		try{
+			return getBasicRedisCacheServer().getMap(key) ;
+		} catch(Exception e) {
+			return null ;
+		}
 	}
 	
 	@Override
 	public List<String> getList(String key) {
-		return getBasicRedisCacheServer().getList(key) ;
+		try{
+			return getBasicRedisCacheServer().getList(key) ;
+		}catch(Exception e) {
+			return null ;
+		}
 	}
 	
 	@Override
 	public Set<String> getSet(String key) {
-		return getBasicRedisCacheServer().getSet(key) ;
+		try{
+			return getBasicRedisCacheServer().getSet(key) ;
+		}catch(Exception e) {
+			return null ;
+		}
 	}
 	
 	/**
