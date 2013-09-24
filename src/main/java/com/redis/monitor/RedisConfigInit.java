@@ -125,7 +125,6 @@ public class RedisConfigInit {
 			//TODO 如果有新的服务加入
 			if (rList.size() > RedisJedisPool.LOAD_SIZE) {
 				logger.info("has new server,begin buid Redis-Server-Config.xml");
-				
 			}
 		}
 	}

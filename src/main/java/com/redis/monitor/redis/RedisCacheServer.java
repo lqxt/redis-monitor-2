@@ -591,6 +591,17 @@ public class RedisCacheServer implements BasicRedisCacheServer {
 				jedisPool.returnResource(jedis);
 		}
 	}
+	
+	public long ttl(String key) {
+		Jedis jedis = null;
+		try {
+			jedis = jedisPool.getResource();
+			return jedis.ttl(key);
+		} finally {
+			if (jedis != null)
+				jedisPool.returnResource(jedis);
+		}
+	}
 
 	public static JedisPool getJedisPool() {
 		return jedisPool;
