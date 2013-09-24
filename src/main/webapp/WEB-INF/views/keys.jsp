@@ -5,10 +5,13 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>redisMonitor</title>
 	<pubTag:resource/>
+	<link href="/resources/json/s.css" rel="stylesheet">
 	<script type="text/javascript" src="resources/bootstrap/js/bootstrap.js"></script>
 	<script type="text/javascript" src="resources/bootstrap/js/bootstrap-dropdown.js"></script>
 	<script type="text/javascript" src="resources/bootstrap/js/bootstrap-scrollspy.js"></script>
 	<script type="text/javascript" src="resources/bootstrap/js/bootstrap-button.js"></script>
+	<script type="text/javascript" src="/resources/json/m.js"></script>
+	<script type="text/javascript" src="/resources/json/c.js"></script>
 	<script src="/js/keys/keys.js"></script>
 	<script>
 		uuid = '${param.uuid}' ;
@@ -43,12 +46,7 @@
 							</tr>
 						</thead>
 						<tbody id="keysBody">
-							<tr>
-								<td><a href="#">province</a></td>
-							</tr>
-							<tr>
-								<td>city</td>
-							</tr>
+							<tr><td>无匹配结果</td></tr>
 						</tbody>
 					</table>
 				</div>
@@ -57,7 +55,17 @@
 			<!--/span-->
 			
 			<div class="span9"> 
-				<div class="hero-unit span-content">
+				<div class="hero-unit span-content" id="listView">
+					<table class="table table-hover e-table-edit">
+						<thead>
+							<tr><th>index</th><th >Value</th></tr>
+						</thead>
+						<tbody>
+							<tr><td>Otto</td><td><textarea rows="" cols="">@mdo</textarea></td></tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="hero-unit span-content" id="mapView">
 					<table class="table table-hover e-table-edit">
 						<thead>
 							<tr>
@@ -70,20 +78,19 @@
 								<td>Otto</td>
 								<td><textarea rows="" cols="">@mdo</textarea></td>
 							</tr>
-							<tr>
-								<td>Thornton</td>
-								<td><textarea class="">@fat@fat@fat@fat@fat@fat@fat@fat@fat@fat@fat@fat@fat@fat@fat@fat@fat@fat@fat@fat@fat@fat@fat@fat@fat@fat@fat@fat@fat@fat@fat@fat@fat@fat@fat</textarea></td>
-							</tr>
 						</tbody>
 					</table>
 				</div>
-				<div class="hero-unit span-content e-value">
+				<div class="hero-unit span-content e-value" id="stringView">
 					<div class="control-group e-format">
-						<button class="btn btn-primary " type="button">Json</button>
+						<button class="btn btn-primary " type="button" onclick="Process()">Json</button>
 						<button class="btn btn-primary"  type="button">XML</button><br/>
 					</div>
 					<textarea class="">大部分常用的表单控件、文本输入控件。包括所有HTML5所支持的：text、password、datetime、 datetime-local、date、 month、time、week、number、email、url、search、tel 和 color。</textarea>
 					
+				</div>
+				<div class="hero-unit span-content e-value">
+					<div id="Canvas" class="Canvas"></div>
 				</div>
 			</div>
 			<!--/span-->

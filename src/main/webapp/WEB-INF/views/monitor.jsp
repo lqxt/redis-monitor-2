@@ -5,6 +5,8 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Angel</title>
 	<pubTag:resource/>
+	<link href="/resources/bootstrap-switch/bootstrap-switch.css" rel="stylesheet">
+	<script type="text/javascript" src="/resources/bootstrap-switch/bootstrap-switch.js"></script>
 	<script type="text/javascript" src="/resources/bootstrap/js/bootstrap.js"></script>
 	<script type="text/javascript" src="/resources/bootstrap/js/bootstrap-dropdown.js"></script>
 	<script type="text/javascript" src="/resources/bootstrap/js/bootstrap-scrollspy.js"></script>
@@ -18,10 +20,9 @@
 	<pubTag:header/>
 	<div class="container e-log"> 
 		<div class="e-control">
-			<div class="btn-group e-startstop" data-toggle="buttons-radio">
-			  <button class="btn btn-primary" id="start">开始</button>
-			  <button class="btn btn-primary active" id="stop">停止</button>
-			</div>
+			<div class="label-toggle-switch make-switch e-startstop">
+		        <input type="checkbox" />
+		    </div>
 			<div class="e-cache">
 			 	<span class="help-inline" style="margin: 0 5px 0 20px;padding-bottom: 10px;">缓冲区</span><input id="bufferSize" type="text" value="1000" class="input-small" style="height:28px;">
 			 </div>
