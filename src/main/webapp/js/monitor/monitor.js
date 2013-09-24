@@ -4,7 +4,16 @@ $(function(){
 	bufferSize = $("#bufferSize").val() ;
 	isScroll = true ;
 	
-	$("#start").click(function(){
+	$('#switch').bootstrapSwitch('setSizeClass', '');
+	
+	$('.label-toggle-switch').on('switch-change', function (e, data) {
+       if(data.value){
+    	   start() ;
+       } else {
+    	   stop() ;
+       }
+    });
+	/*$("#start").click(function(){
 		if(!$(this).hasClass("active")) {
 			start() ;
 		}
@@ -13,7 +22,7 @@ $(function(){
 		if(!$(this).hasClass("active")) {
 			stop() ;
 		}
-	}) ;
+	}) ;*/
 	$("#bufferSize").blur(function(){
 		if($.isNumeric($(this).val())){
 			bufferSize  = parseInt($(this).val()) ; 
