@@ -114,5 +114,7 @@ public interface BasicRedisCacheServer {
 	
 	public List<Slowlog> slowlogs();
 	
+	public long ttl(String key);
+	
 }
 
