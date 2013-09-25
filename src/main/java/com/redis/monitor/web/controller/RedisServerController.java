@@ -5,8 +5,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.redis.monitor.RedisJedisPool;
@@ -24,6 +26,33 @@ public class RedisServerController extends BaseProfileController {
 	@RequestMapping(value="redisServerList.htm",method=RequestMethod.POST)
 	public ModelAndView redisServerList() {
 		ModelAndView mv = getJsonModelAndView();
+		List<RedisResult> list = resultList();
+		mv.addObject("rows", list);
+		mv.addObject("total", list == null ? 0 : list.size());
+		return mv;
+	}
+	
+	@RequestMapping(value="/newServer.htm",method=RequestMethod.POST)
+	public ModelAndView addRedisServer(@ModelAttribute RedisServer redisServer) {
+		RedisJedisPool.addNewRedisServer(redisServer);
+		ModelAndView mv = getJsonModelAndView();
+		List<RedisResult> list = resultList();
+		mv.addObject("rows", list);
+		mv.addObject("total", list == null ? 0 : list.size());
+		return mv;
+	}
+	
+	@RequestMapping(value="/removeServer.htm",method=RequestMethod.POST)
+	public ModelAndView removeRedisServer(@RequestParam(required=true) String uuid) {
+		RedisJedisPool.removeRedisServer(uuid);
+		ModelAndView mv = getJsonModelAndView();
+		List<RedisResult> list = resultList();
+		mv.addObject("rows", list);
+		mv.addObject("total", list == null ? 0 : list.size());
+		return mv;
+	}
+	
+	private List<RedisResult> resultList() {
 		List<RedisServer> rsList = RedisJedisPool.getAllRedisServer();
 		List<RedisResult> list = null;
 		if (rsList != null && rsList.size() > 0) {
@@ -58,9 +87,7 @@ public class RedisServerController extends BaseProfileController {
 				list.add(rr);
 			}
 		}
-		mv.addObject("rows", list);
-		mv.addObject("total", list == null ? 0 : list.size());
-		return mv;
+		return list;
 	}
 	
 	class RedisResult {

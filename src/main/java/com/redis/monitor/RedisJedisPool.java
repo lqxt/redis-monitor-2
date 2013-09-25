@@ -49,6 +49,10 @@ public class RedisJedisPool {
 		}
 	}
 	
+	public static void removeRedisServer(String uuid) {
+		if (uuid != null && !uuid.equals("")) map.remove(uuid);
+	}
+	
 	public static BasicRedisCacheServer getRedisCacheServer(String uuid) {
 		return map.get(uuid).getBasicRedisCacheServer();
 	}

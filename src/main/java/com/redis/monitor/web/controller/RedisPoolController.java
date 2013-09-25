@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.redis.monitor.RedisJedisPool;
 import com.redis.monitor.RedisServer;
 
 @Controller
@@ -25,11 +27,6 @@ public class RedisPoolController extends BaseProfileController {
 	public void checkedPool(HttpServletRequest request,HttpServletResponse response,@PathVariable String uuid) {
 		Cookie cookie = new Cookie("uuid", uuid);
 		response.addCookie(cookie);
-	}
-	
-	@RequestMapping(value="/server/newServer.htm",method=RequestMethod.POST)
-	public ModelAndView addRedisServer(@ModelAttribute RedisServer redisServer) {
-		return null;
 	}
 }
 

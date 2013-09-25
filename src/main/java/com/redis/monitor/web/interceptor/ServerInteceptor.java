@@ -1,5 +1,8 @@
 package com.redis.monitor.web.interceptor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +22,8 @@ public class ServerInteceptor extends HandlerInterceptorAdapter {
 			.getLogger(ServerInteceptor.class);
 
 	public static final String change_redis_uri = "change.htm";
+	
+	private static List<String> unCheckUrl = new ArrayList<String>();
 
 	@Override
 	public boolean preHandle(HttpServletRequest request,

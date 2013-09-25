@@ -123,7 +123,7 @@ public class RedisConfigInit {
 		Collection<Redis> rList = RedisJedisPool.getAllRedis();
 		if (rList != null && rList.size() > 0) {
 			//TODO 如果有新的服务加入
-			if (rList.size() > RedisJedisPool.LOAD_SIZE) {
+			if (rList.size() > RedisJedisPool.LOAD_SIZE || rList.size() < RedisJedisPool.LOAD_SIZE) {
 				logger.info("has new server,begin buid Redis-Server-Config.xml");
 			}
 		}
