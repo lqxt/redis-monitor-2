@@ -9,11 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.redis.monitor.RedisCacheThreadLocal;
 import com.redis.monitor.RedisJedisPool;
+import com.redis.monitor.RedisServer;
 import com.redis.monitor.SocketMonitor;
+import com.redis.monitor.manager.RedisManager;
 import com.redis.monitor.redis.RedisCacheServer;
 import com.redis.monitor.web.controller.BaseProfileController;
 
@@ -24,7 +27,10 @@ public class ServerInteceptor extends HandlerInterceptorAdapter {
 	public static final String change_redis_uri = "change.htm";
 	
 	private static List<String> unCheckUrl = new ArrayList<String>();
-
+	
+	@Autowired
+	private RedisManager redisManager;
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
@@ -53,13 +59,18 @@ public class ServerInteceptor extends HandlerInterceptorAdapter {
 			RedisCacheThreadLocal.set(uuid);
 			String ping = RedisJedisPool.getRedisCacheServer().ping();
 			
-			request.setAttribute("host",RedisJedisPool.getRedisServer().getHost());
-			request.setAttribute("port", RedisJedisPool.getRedisServer().getPort());
-			request.setAttribute("uuid", uuid);
 			if (!ping.equals("PONG")) {
 				response.sendRedirect("/welcome.html");
 				return false;
 			}
+			request.setAttribute("host",RedisJedisPool.getRedisServer().getHost());
+			request.setAttribute("port", RedisJedisPool.getRedisServer().getPort());
+			request.setAttribute("uuid", uuid);
+			
+			//TODO redis列表加载
+			List<RedisServer> rsList = redisManager.redisServerList();
+			request.setAttribute("redisServerList", rsList);
+			
 			logger.info("choice redis server :{}",
 					RedisJedisPool.getRedisServer(uuid));
 		}

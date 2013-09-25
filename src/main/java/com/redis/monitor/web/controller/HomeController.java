@@ -23,9 +23,6 @@ public class HomeController  extends BaseProfileController {
 	@RequestMapping(value="/index.htm",method=RequestMethod.GET)
 	public ModelAndView index(HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
-		//TODO redis列表加载
-		List<RedisServer> rsList = redisManager.redisServerList();
-		mv.addObject("redisServerList", rsList);
 		
 		//TODO redis info信息加载
 		List<RedisInfoDetail> rifList = redisManager.getRedisInfo();
