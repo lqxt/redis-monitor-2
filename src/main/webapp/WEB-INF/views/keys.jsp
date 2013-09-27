@@ -27,20 +27,22 @@
 					<div class="form-search e-search-form">
 					  <input type="text" class="input-medium search-query" id="searchValue">
 					  <button class="btn btn-primary" id="search">搜索</button>
+					  <input type="text" id="showNum" value="100" style="width:65px;" title="显示数量"/>
 					</div>
-					<div class="btn-group type">
+					
+					<!-- <div class="btn-group type">
 					  <a class="btn dropdown-toggle btn-info" data-toggle="dropdown" href="#">
 						全部
 					    <span class="caret"></span>
 					  </a>
 					  <ul class="dropdown-menu">
 					    <li><a href="#two">String</a></li>
-						<!-- <li class="divider">List</li> -->
+						<li class="divider">List</li>
 						<li><a href="#">List</a></li>
 						<li><a href="#three">Map</a></li>
 						<li><a href="#three">Set</a></li>
 					  </ul>
-					</div>
+					</div> -->
 					<table class="table table-hover">
 						<thead>
 							<tr>
@@ -81,6 +83,7 @@
 				</div>
 				<div class="hero-unit span-content e-value" id="stringView">
 					<div class="control-group e-format">
+						<button class="btn btn-primary " type="button" onclick="updateString()">修改</button>
 						<button class="btn btn-primary " type="button" onclick="Process()">Json</button>
 						<button class="btn btn-primary"  type="button" onclick="formatXML()">XML</button><br/>
 					</div>
