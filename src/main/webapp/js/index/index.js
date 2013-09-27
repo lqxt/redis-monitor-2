@@ -1,6 +1,4 @@
 $(document).ready(function() {
-		$('.dropdown-toggle').dropdown() ;
-		
 		 Highcharts.setOptions({
 	            global: {
 	                useUTC: false

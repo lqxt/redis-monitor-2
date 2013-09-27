@@ -30,6 +30,8 @@ $(function(){
 }) ;
 
 function getValue(key){
+	$("#Canvas").parent().hide() ; 
+	
 	console.log('get value:' + key) ;
 	var url = '/keys/value.htm?key=' + key +'&uuid=' + uuid ;
 	$.getJSON(url , function(data){
@@ -50,4 +52,11 @@ function getValue(key){
 		}
 		console.log(data) ;
 	}) ;
+}
+
+function formatXML(){
+	var xml = $("#stringView").find("textarea").val();
+	xml_formatted = formatXml(xml);
+	xml_escaped = xml_formatted.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/ /g, '&nbsp;').replace(/\n/g,'<br />');
+	$("#Canvas").empty().html("<PRE class='CodeContainer'>"+xml_escaped+"</PRE>").parent().show();
 }
