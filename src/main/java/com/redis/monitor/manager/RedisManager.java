@@ -49,5 +49,5 @@ public interface RedisManager {
 	
 	public Map<String,Object> getKeysSize();
 	
-	public String set(String key, Object value); 
+	public String set(String key, Object value);
 }

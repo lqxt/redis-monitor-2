@@ -129,11 +129,6 @@ public class RedisManagerImpl implements RedisManager {
 		}
 	}
 
-	@Override
-	public String set(String key , Object value) {
-		return getBasicRedisCacheServer().set(key , String.valueOf(value)) ;
-	}
-	
 	public Map<String, String> getMap(String key) {
 		try{
 			return getBasicRedisCacheServer().getMap(key) ;
@@ -166,10 +161,10 @@ public class RedisManagerImpl implements RedisManager {
 		for (int i = 0; i < strs.length; i++) {
 			String s = strs[i];
 			String[] detail = s.split(":");
-			if (detail[0].equals("used_memory_human")) {
+			if (detail[0].equals("used_memory")) {
 				map = new HashMap<String, Object>();
-				map.put("used_memory_human",detail[1].substring(0, detail[1].length() - 1));
-				map.put("create_time", getDateStr());
+				map.put("used_memory",detail[1].substring(0, detail[1].length() - 1));
+				map.put("create_time", new Date().getTime());
 				break;
 			}
 		}
@@ -180,7 +175,7 @@ public class RedisManagerImpl implements RedisManager {
 	public Map<String,Object> getKeysSize() {
 		long dbSize = getBasicRedisCacheServer().dbSize();
 		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("create_time", getDateStr());
+		map.put("create_time", new Date().getTime());
 		map.put("dbSize", dbSize);
 		return map;
 	}
@@ -209,4 +204,10 @@ public class RedisManagerImpl implements RedisManager {
 	public BasicRedisCacheServer getBasicRedisCacheServer(String uuid ) {
 		return RedisJedisPool.getRedisCacheServer(uuid) ;
 	}
+	
+	@Override
+	public String set(String key , Object value) {
+		return getBasicRedisCacheServer().set(key , String.valueOf(value)) ;
+	}
+
 }
