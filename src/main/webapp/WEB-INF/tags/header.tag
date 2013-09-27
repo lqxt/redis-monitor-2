@@ -1,7 +1,8 @@
 <%@tag import="com.redis.monitor.RedisJedisPool"%>
 <%@tag pageEncoding="utf-8" isELIgnored="false" description="header" body-content="empty"%>
 <%@include file="/WEB-INF/jsp/taglib/taglibs.jsp" %>
-<div class="navbar">
+<script>$(function(){$('.dropdown-toggle').dropdown() ;});</script>
+<div class="navbar navbar-inverse">
 	<div class="navbar-inner">
 		<div class="container">
 			<a class="btn btn-navbar" data-toggle="collapse"
