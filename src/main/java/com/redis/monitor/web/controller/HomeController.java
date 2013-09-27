@@ -42,6 +42,22 @@ public class HomeController  extends BaseProfileController {
 		return mv;
 	}
 	
+	@RequestMapping(value="/chartMemery.htm",method=RequestMethod.GET)
+	public ModelAndView chartMemery() {
+		ModelAndView mv = getJsonModelAndView();
+		mv.addObject(redisManager.getMemeryInfo());
+		return mv;
+	}
+	
+	@RequestMapping(value="/chartKeys.htm",method=RequestMethod.GET)
+	public ModelAndView chartKeys() {
+		ModelAndView mv = getJsonModelAndView();
+		mv.addObject(redisManager.getKeysSize());
+		return mv;
+	}
+	
+	
+	
 	@RequestMapping(value="/flushall.htm",method=RequestMethod.GET)
 	public ModelAndView flushall() {
 		ModelAndView mv = getJsonModelAndView();
