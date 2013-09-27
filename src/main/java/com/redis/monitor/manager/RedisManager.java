@@ -44,6 +44,10 @@ public interface RedisManager {
 	public List<String> getList(String key);
 
 	public Set<String> getSet(String key);
-
+	
+	public Map<String,Object> getMemeryInfo();
+	
+	public Map<String,Object> getKeysSize();
+	
 	public String set(String key, Object value); 
 }

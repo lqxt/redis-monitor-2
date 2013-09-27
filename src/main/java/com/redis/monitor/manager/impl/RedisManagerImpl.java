@@ -4,8 +4,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -155,6 +158,37 @@ public class RedisManagerImpl implements RedisManager {
 		}catch(Exception e) {
 			return null ;
 		}
+	}
+	
+	public Map<String,Object> getMemeryInfo() {
+		String[] strs = getBasicRedisCacheServer().getRedisInfo().split("\n");
+		Map<String, Object> map = null;
+		for (int i = 0; i < strs.length; i++) {
+			String s = strs[i];
+			String[] detail = s.split(":");
+			if (detail[0].equals("used_memory_human")) {
+				map = new HashMap<String, Object>();
+				map.put("used_memory_human",detail[1].substring(0, detail[1].length() - 1));
+				map.put("create_time", getDateStr());
+				break;
+			}
+		}
+		return map;
+	}
+	
+
+	public Map<String,Object> getKeysSize() {
+		long dbSize = getBasicRedisCacheServer().dbSize();
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("create_time", getDateStr());
+		map.put("dbSize", dbSize);
+		return map;
+	}
+	
+	
+	private String getDateStr() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return dateFormat.format(new Date());
 	}
 	
 	/**
