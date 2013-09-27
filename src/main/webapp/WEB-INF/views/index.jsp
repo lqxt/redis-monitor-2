@@ -5,11 +5,11 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>redisMonitor</title>
 	<pubTag:resource/>
-	<script type="text/javascript" src="resources/bootstrap/js/bootstrap.js"></script>
-	<script type="text/javascript" src="resources/bootstrap/js/bootstrap-dropdown.js"></script>
-	<script type="text/javascript" src="resources/bootstrap/js/bootstrap-scrollspy.js"></script>
-	<script type="text/javascript" src="resources/bootstrap/js/bootstrap-button.js"></script>
-	<script src="http://code.highcharts.com/highcharts.js"></script>
+	<script type="text/javascript" src="/resources/bootstrap/js/bootstrap.js"></script>
+	<script type="text/javascript" src="/resources/bootstrap/js/bootstrap-dropdown.js"></script>
+	<script type="text/javascript" src="/resources/bootstrap/js/bootstrap-scrollspy.js"></script>
+	<script type="text/javascript" src="/resources/bootstrap/js/bootstrap-button.js"></script>
+	<script src="/resources/highchart/highcharts.js"></script>
 	<script src="/js/index/index.js"></script>
 </head>
 <body>

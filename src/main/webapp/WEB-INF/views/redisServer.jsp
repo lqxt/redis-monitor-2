@@ -2,15 +2,21 @@
 <%@include file="/WEB-INF/jsp/taglib/taglibs.jsp" %>
 <html>
 <head>
+	<pubTag:resource/>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" type="text/css" href="/resources/jquery-easyui-1.3.4/themes/bootstrap/easyui.css">
     <link rel="stylesheet" type="text/css" href="/resources/jquery-easyui-1.3.4/themes/icon.css">
-    <script type="text/javascript" src="/resources/jquery-easyui-1.3.4/jquery.min.js"></script>
-    <script type="text/javascript" src="/resources/jquery-easyui-1.3.4/jquery.easyui.min.js"></script>
+    <link href="/resources/bootstrap-switch/bootstrap-switch.css" rel="stylesheet">
+	<script type="text/javascript" src="/resources/bootstrap-switch/bootstrap-switch.js"></script>
+    
+    <script type="text/javascript" src="/resources/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/resources/bootstrap/js/bootstrap-scrollspy.js"></script>
+	<script type="text/javascript" src="/resources/bootstrap/js/bootstrap-button.js"></script>
+	
+	<script type="text/javascript" src="/resources/jquery-easyui-1.3.4/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="/resources/jquery-easyui-1.3.4/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src="/resources/jquery-easyui-1.3.4/plugins/jquery.dialog.js"></script>
 	<title>Angel</title>
-	<pubTag:resource/>
 	
 </head>
 <body>
@@ -38,6 +44,7 @@
     </table>
     <div id="toolbar">
        <button class="btn btn-small btn-primary" id="addRedis"  onclick="newRedis()">添加</button>
+       <a href="#myModal" role="button" class="btn" data-toggle="modal">Modal</a>
        <button class="btn btn-small btn-primary" id="updateRedis">修改</button>
        <button class="btn btn-small btn-primary" id="removeRedis">删除</button>
     </div>
@@ -144,5 +151,41 @@
         }
     </style>
 	<pubTag:footer/>
+	
+          <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h5 id="myModalLabel">新增</h5>
+            </div>
+            <div class="modal-body">
+            <form class="form-horizontal e-form">
+			  <div class="control-group">
+			    <label class="control-label" for="inputEmail">Email</label>
+			    <div class="controls">
+			      <input type="text" id="inputEmail" placeholder="Email">
+			    </div>
+			  </div>
+			  <div class="control-group">
+			    <label class="control-label" for="inputPassword">Password</label>
+			    <div class="controls">
+			      <input type="password" id="inputPassword" placeholder="Password">
+			    </div>
+			  </div>
+			  <div class="control-group">
+			    <div class="controls">
+			      <label class="checkbox">
+			        <input type="checkbox"> Remember me
+			      </label>
+			      <button type="submit" class="btn">Sign in</button>
+			    </div>
+			  </div>
+			</form>
+            </div>
+            <div class="modal-footer">
+              <button class="btn" data-dismiss="modal">关闭</button>
+              <button class="btn btn-primary">保存</button>
+            </div>
+          </div>
+          
 </body>
 </html>

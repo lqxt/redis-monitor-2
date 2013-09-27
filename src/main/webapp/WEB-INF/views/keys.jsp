@@ -12,6 +12,7 @@
 	<script type="text/javascript" src="resources/bootstrap/js/bootstrap-button.js"></script>
 	<script type="text/javascript" src="/resources/json/m.js"></script>
 	<script type="text/javascript" src="/resources/json/c.js"></script>
+	<script type="text/javascript" src="/resources/xml/formatXML.js"></script>
 	<script src="/js/keys/keys.js"></script>
 	<script>
 		uuid = '${param.uuid}' ;
@@ -55,17 +56,16 @@
 			<!--/span-->
 			
 			<div class="span9"> 
-				<div class="hero-unit span-content" id="listView">
+				<div class="hero-unit span-content hide" id="listView">
 					<table class="table table-hover e-table-edit">
 						<thead>
 							<tr><th>index</th><th >Value</th></tr>
 						</thead>
 						<tbody>
-							<tr><td>Otto</td><td><textarea rows="" cols="">@mdo</textarea></td></tr>
 						</tbody>
 					</table>
 				</div>
-				<div class="hero-unit span-content" id="mapView">
+				<div class="hero-unit span-content hide" id="mapView">
 					<table class="table table-hover e-table-edit">
 						<thead>
 							<tr>
@@ -75,8 +75,6 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td>Otto</td>
-								<td><textarea rows="" cols="">@mdo</textarea></td>
 							</tr>
 						</tbody>
 					</table>
@@ -84,12 +82,12 @@
 				<div class="hero-unit span-content e-value" id="stringView">
 					<div class="control-group e-format">
 						<button class="btn btn-primary " type="button" onclick="Process()">Json</button>
-						<button class="btn btn-primary"  type="button">XML</button><br/>
+						<button class="btn btn-primary"  type="button" onclick="formatXML()">XML</button><br/>
 					</div>
-					<textarea class="">大部分常用的表单控件、文本输入控件。包括所有HTML5所支持的：text、password、datetime、 datetime-local、date、 month、time、week、number、email、url、search、tel 和 color。</textarea>
+					<textarea class=""></textarea>
 					
 				</div>
-				<div class="hero-unit span-content e-value">
+				<div class="hero-unit span-content e-value hide">
 					<div id="Canvas" class="Canvas"></div>
 				</div>
 			</div>
