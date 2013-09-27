@@ -7,8 +7,14 @@ $(function(){
 	}) ;
 	function searchListener(e){
 		var pattern = $.trim($("#searchValue").val()) ;
-		var url = '/keys/getByPattern.htm?patternKey='+pattern+'&uuid='+uuid ;
-		$.getJSON(url , function(data){
+		var showNum = $.trim($("#showNum").val()) ;
+		if($.isNumeric(showNum)){
+			showNum = parseInt(showNum) ;
+		} else {
+			showNum = 100 ;
+		}
+		var url = '/keys/getByPattern.htm';
+		$.getJSON(url ,{patternKey:pattern , uuid:uuid , showNum:showNum } , function(data){
 			$("#keysBody").empty() ;
 			if(data == null || data.length < 1){
 				$("#keysBody").append("<tr><td>无匹配结果</td></tr>") ; 
@@ -31,6 +37,7 @@ $(function(){
 
 function getValue(key){
 	$("#Canvas").parent().hide() ; 
+	window.key = key ;
 	
 	console.log('get value:' + key) ;
 	var url = '/keys/value.htm?key=' + key +'&uuid=' + uuid ;
@@ -59,4 +66,11 @@ function formatXML(){
 	xml_formatted = formatXml(xml);
 	xml_escaped = xml_formatted.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/ /g, '&nbsp;').replace(/\n/g,'<br />');
 	$("#Canvas").empty().html("<PRE class='CodeContainer'>"+xml_escaped+"</PRE>").parent().show();
+}
+
+function updateString(){
+	var val = $("#stringView").find("textarea").val() ;
+	$.post('/keys/updateString.htm' , {key:key , value:val} , function(data){
+		console.log(data) ;
+	} , "json") ;
 }
