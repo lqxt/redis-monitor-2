@@ -13,5 +13,7 @@ public class Constants {
 	public static final String REDIS_SERVER_CONFIG_PATH = config.getString("redisServerConfigPath");
 	public static final String REDIS_SERVER_CONFIG_FILE_NAME = config.getString("redisServerConfigName");
 	
+	public static final String RES_STATUS = "status" ;
+	public static final String RES_MSG = "message" ;
 
 }

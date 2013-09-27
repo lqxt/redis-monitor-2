@@ -44,4 +44,6 @@ public interface RedisManager {
 	public List<String> getList(String key);
 
 	public Set<String> getSet(String key);
+
+	public String set(String key, Object value); 
 }

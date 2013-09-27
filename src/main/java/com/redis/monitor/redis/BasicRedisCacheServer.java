@@ -116,5 +116,7 @@ public interface BasicRedisCacheServer {
 	
 	public long ttl(String key);
 	
+	public String set(String key, String value) ;
+	
 }
 

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.redis.monitor.Constants;
 import com.redis.monitor.SocketMonitor;
 
 @Controller
@@ -36,12 +37,12 @@ public class MonitorController extends BaseProfileController{
 	public ModelAndView start(){
 		String uuid  = getUuid() ;
 		Map<String , Object> res = new HashMap<String , Object>() ;
-		res.put("status", 0) ;
+		res.put(Constants.RES_STATUS, 0) ;
 		try{
 			redisManager.startMonitor(uuid) ;	
 		} catch(Exception e ) {
-			res.put("status", 1) ;
-			res.put("message", "开始监控时发生错误") ;
+			res.put(Constants.RES_STATUS, 1) ;
+			res.put(Constants.RES_MSG , "开始监控时发生错误") ;
 		}
 		return putModel(res) ; 
 	}
@@ -49,12 +50,12 @@ public class MonitorController extends BaseProfileController{
 	@RequestMapping("/monitor/stop.htm")
 	public ModelAndView stop(){
 		Map<String , Object> res = new HashMap<String , Object>() ;
-		res.put("status", 0) ;
+		res.put(Constants.RES_STATUS, 0) ;
 		try{
 			SocketMonitor.disconnectClient();
 		} catch(Exception e ) {
-			res.put("status", 1) ;
-			res.put("message", "停止监控时发生错误") ;
+			res.put(Constants.RES_STATUS, 1) ;
+			res.put(Constants.RES_MSG , "停止监控时发生错误") ;
 		}
 		return putModel(res) ;
 	}

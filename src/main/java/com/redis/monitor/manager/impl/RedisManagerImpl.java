@@ -126,6 +126,11 @@ public class RedisManagerImpl implements RedisManager {
 		}
 	}
 
+	@Override
+	public String set(String key , Object value) {
+		return getBasicRedisCacheServer().set(key , String.valueOf(value)) ;
+	}
+	
 	public Map<String, String> getMap(String key) {
 		try{
 			return getBasicRedisCacheServer().getMap(key) ;
