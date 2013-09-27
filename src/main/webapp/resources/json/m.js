@@ -1,8 +1,5 @@
-	_uacct = "UA-2223138-1";
-	urchinTracker();
 function onLoad() {
     var version = getSilverlightVersion();
-    if (version) { __utmSetVar(version); }
 }
 function getSilverlightVersion() {
 
