@@ -8,7 +8,7 @@
 			<a class="btn btn-navbar" data-toggle="collapse"
 				data-target=".nav-collapse"> <span class="icon-bar"></span> <span
 				class="icon-bar"></span> <span class="icon-bar"></span>
-			</a> <a class="brand" href="#">Angel</a>
+			</a> <a class="brand" href="/">Angel</a>
 			<div class="nav-collapse">
 				<ul class="nav">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"

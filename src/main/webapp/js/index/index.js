@@ -16,9 +16,11 @@ $(document).ready(function() {
 	                        // set up the updating of the chart each second
 	                        var series = this.series[0];
 	                        setInterval(function() {
-	                            var x = (new Date()).getTime(), // current time
-	                                y = Math.random() * (1000-800) + 800;
-	                            series.addPoint([x, y], true, true );
+	                        	$.getJSON('/chartMemery.htm' , function(data){
+	        						var x = data.hashMap.create_time , // current time
+	        						y = data.hashMap.used_memory/1024 ;
+	        						series.addPoint([x, y], true, true );
+	        						});
 	                        }, 1000);
 	                    }
 	                }
@@ -80,9 +82,11 @@ $(document).ready(function() {
 	        				// set up the updating of the chart each second
 	        				var series = this.series[0];
 	        				setInterval(function() {
-	        					var x = (new Date()).getTime(), // current time
-	        					y = Math.random() * (1000-800) + 800;
-	        					series.addPoint([x, y], true, true );
+	        					$.getJSON('/chartKeys.htm' , function(data){
+	        						var x = data.hashMap.create_time , // current time
+	        						y = data.hashMap.dbSize ;
+	        						series.addPoint([x, y], true, true );
+	        						});
 	        				}, 1000);
 	        			}
 	        		}
