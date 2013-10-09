@@ -35,9 +35,9 @@ public class KeysController extends BaseProfileController{
 			List<String> keyList = new ArrayList<String>() ;
 			int i = 0 ;
 			int num = Integer.parseInt(showNum) ;
-			for(Iterator<String> iterator = keySet.iterator() ; ;iterator.hasNext()){
+			for(String key : keySet){
 				if(i++ < num){
-					keyList.add(iterator.next()) ;
+					keyList.add(key) ;
 				} else {
 					break ;
 				}

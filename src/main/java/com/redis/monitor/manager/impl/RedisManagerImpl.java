@@ -44,15 +44,19 @@ public class RedisManagerImpl implements RedisManager {
 		List<RedisInfoDetail> ridList = new ArrayList<RedisInfoDetail>();
 		String[] strs = info.split("\n");
 		RedisInfoDetail rif = null;
-		for (int i = 0; i < strs.length; i++) {
-			rif = new RedisInfoDetail();
-			String s = strs[i];
-			String[] str = s.split(":");
-			String key = str[0];
-			String value = str[1];
-			rif.setKey(key);
-			rif.setValue(value);
-			ridList.add(rif);
+		if(strs != null && strs.length > 0){
+			for (int i = 0; i < strs.length; i++) {
+				rif = new RedisInfoDetail();
+				String s = strs[i];
+				String[] str = s.split(":");
+				if(str != null && str.length > 1 ) {
+					String key = str[0];
+					String value = str[1];
+					rif.setKey(key);
+					rif.setValue(value);
+					ridList.add(rif);
+				}
+			}
 		}
 		return ridList;
 	}
