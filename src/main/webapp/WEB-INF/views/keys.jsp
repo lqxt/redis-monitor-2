@@ -22,12 +22,12 @@
 	<pubTag:header/>
 	<div class="container-fluid"> 
 		<div class="row-fluid">
-			<div class="span3">
+			<div class="span3 left">
 				<div class="well sidebar-nav info keys">
 					<div class="form-search e-search-form">
-					  <input type="text" class="input-medium search-query" id="searchValue">
+					  <input type="text" class="input-medium search-query" id="searchValue" style="width: 140px;">
 					  <button class="btn btn-primary" id="search">搜索</button>
-					  <input type="text" id="showNum" value="100" style="width:65px;" title="显示数量"/>
+					  <input type="text" id="showNum" value="100" style="width: 50px;" title="显示数量"/>
 					</div>
 					
 					<!-- <div class="btn-group type">
@@ -57,7 +57,7 @@
 			</div>
 			<!--/span-->
 			
-			<div class="span9"> 
+			<div class="span8"> 
 				<div class="hero-unit span-content hide" id="listView">
 					<table class="table table-hover e-table-edit">
 						<thead>
