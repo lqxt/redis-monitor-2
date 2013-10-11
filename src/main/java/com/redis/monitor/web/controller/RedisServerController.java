@@ -41,6 +41,7 @@ public class RedisServerController extends BaseProfileController {
 		//TODO redis列表加载
 		List<RedisServer> rsList = redisManager.redisServerList();
 		request.setAttribute("redisServerList", rsList);
+		
 /*		ModelAndView mv = getJsonModelAndView();
 		List<RedisResult> list = resultList();
 		mv.addObject("rows", list);

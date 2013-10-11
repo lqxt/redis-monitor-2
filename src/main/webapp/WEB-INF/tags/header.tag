@@ -1,7 +1,37 @@
 <%@tag import="com.redis.monitor.RedisJedisPool"%>
 <%@tag pageEncoding="utf-8" isELIgnored="false" description="header" body-content="empty"%>
 <%@include file="/WEB-INF/jsp/taglib/taglibs.jsp" %>
-<script>$(function(){$('.dropdown-toggle').dropdown() ;});</script>
+<script>
+	$(function(){$('.dropdown-toggle').dropdown() ;});
+	function confirmFlushAll(){
+		var confirm = $.scojs_confirm({content:'确认要执行flushAll操作吗?' , action:flushAll});
+		confirm.show() ;
+	}
+	function flushAll(){
+		console.log("flush all") ;
+		$.getJSON('/flushall.htm' , function(data){
+			if(data.statu == 0){
+				message('操作成功') ;
+			} else {
+				message('操作失败') ;
+			}
+		}) ;
+	}
+	function confirmFlushDB(){
+		var confirm = $.scojs_confirm({content:'确认要执行flushDB操作吗?' , action:flushDB});
+		confirm.show() ;
+	}
+	function flushDB(){
+		console.log("flush db") ;
+		$.getJSON('/flushDb.htm' , function(data){
+			if(data.statu == 0){
+				message('操作成功') ;
+			} else {
+				message('操作失败') ;
+			}
+		}) ;
+	}
+</script>
 <div class="navbar navbar-inverse">
 	<div class="navbar-inner">
 		<div class="container">
@@ -31,10 +61,10 @@
 				<ul class="nav pull-right">
 					<li class="active"><a href="#"><font size="5">redis://${host }:${port }</font></a></li>
 					<li class="divider-vertical"></li>
-					<li><button class="btn btn-small btn-primary" id="flushall" value="${id }">flushall</button></li>
+					<li><button class="btn btn-small btn-primary" id="flushall" onclick="confirmFlushAll()" value="${id }">flushall</button></li>
 					<li class="divider-vertical"></li>
 					<li>
-						<button class="btn btn-small btn-primary" id="flushdb" value="${id }">flushDB</button>
+						<button class="btn btn-small btn-primary" id="flushdb" onclick="confirmFlushDB()" value="${id }">flushDB</button>
 					</li>
 				</ul>
 			</div>
