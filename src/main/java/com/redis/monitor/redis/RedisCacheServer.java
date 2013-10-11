@@ -253,6 +253,7 @@ public class RedisCacheServer implements BasicRedisCacheServer {
 	}
 	
 	public String ping() {
+
 		Jedis jedis = null;
 		try {
 			jedis = jedisPool.getResource();

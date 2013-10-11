@@ -8,8 +8,14 @@ public class RedisCacheThreadLocal {
 	private  static ThreadLocal<String> uuidThreadLocal = new ThreadLocal<String>();
 	
 	public static void set(String uuid) {
-		redisCacheThreadLocal.set(RedisJedisPool.getRedisCacheServer(uuid));
-		uuidThreadLocal.set(uuid);
+		BasicRedisCacheServer basicRedisCacheServer = RedisJedisPool.getRedisCacheServer(uuid);
+		if (basicRedisCacheServer != null) {
+			BasicRedisCacheServer brc = redisCacheThreadLocal.get();
+			if (brc == null) {
+				redisCacheThreadLocal.set(RedisJedisPool.getRedisCacheServer(uuid));
+				uuidThreadLocal.set(uuid);
+			}
+		}
 	}
 	
 	public static BasicRedisCacheServer get() {

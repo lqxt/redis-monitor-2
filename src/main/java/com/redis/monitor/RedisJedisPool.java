@@ -50,19 +50,20 @@ public class RedisJedisPool {
 	}
 	
 	public static void removeRedisServer(String uuid) {
-		if (uuid != null && !uuid.equals("")) map.remove(uuid);
+		if (uuid != null && !uuid.equals("") && map.containsKey(uuid)) map.remove(uuid);
 	}
 	
 	public static BasicRedisCacheServer getRedisCacheServer(String uuid) {
-		return map.get(uuid).getBasicRedisCacheServer();
+		return map.get(uuid) == null ? null : map.get(uuid).getBasicRedisCacheServer();
 	}
 	
 	public static BasicRedisCacheServer getRedisCacheServer() {
-		return map.get(RedisCacheThreadLocal.getUuid()).getBasicRedisCacheServer();
+		String uuid = RedisCacheThreadLocal.getUuid();
+		return map.get(uuid) == null ? null : map.get(uuid).getBasicRedisCacheServer();
 	}
 	
 	public static RedisServer getRedisServer(String uuid) {
-		return map.get(uuid).getRedisServer();
+		return map.get(uuid) == null ? null : map.get(uuid).getRedisServer();
 	}
 	
 	public static RedisServer getRedisServer() {

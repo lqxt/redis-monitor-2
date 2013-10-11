@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +25,7 @@ public class RedisServerController extends BaseProfileController {
 		return "redisServer";
 	}
 	
-	@RequestMapping(value="redisServerList.htm",method=RequestMethod.POST)
+	@RequestMapping(value="/redisServerList.htm",method=RequestMethod.POST)
 	public ModelAndView redisServerList() {
 		ModelAndView mv = getJsonModelAndView();
 		List<RedisResult> list = resultList();
@@ -33,18 +35,25 @@ public class RedisServerController extends BaseProfileController {
 	}
 	
 	@RequestMapping(value="/newServer.htm",method=RequestMethod.POST)
-	public ModelAndView addRedisServer(@ModelAttribute RedisServer redisServer) {
+	public String addRedisServer(HttpServletRequest request,@ModelAttribute RedisServer redisServer) {
+		RedisJedisPool.removeRedisServer(redisServer.getUuid());
 		RedisJedisPool.addNewRedisServer(redisServer);
-		ModelAndView mv = getJsonModelAndView();
+		//TODO redis列表加载
+		List<RedisServer> rsList = redisManager.redisServerList();
+		request.setAttribute("redisServerList", rsList);
+/*		ModelAndView mv = getJsonModelAndView();
 		List<RedisResult> list = resultList();
 		mv.addObject("rows", list);
-		mv.addObject("total", list == null ? 0 : list.size());
-		return mv;
+		mv.addObject("total", list == null ? 0 : list.size());*/
+		return "redisServer";
 	}
 	
-	@RequestMapping(value="/removeServer.htm",method=RequestMethod.POST)
-	public ModelAndView removeRedisServer(@RequestParam(required=true) String uuid) {
+	@RequestMapping(value="/removeServer.htm",method=RequestMethod.GET)
+	public ModelAndView removeRedisServer(HttpServletRequest request,@RequestParam(required=true) String uuid) {
 		RedisJedisPool.removeRedisServer(uuid);
+		//TODO redis列表加载
+		List<RedisServer> rsList = redisManager.redisServerList();
+		request.setAttribute("redisServerList", rsList);
 		ModelAndView mv = getJsonModelAndView();
 		List<RedisResult> list = resultList();
 		mv.addObject("rows", list);

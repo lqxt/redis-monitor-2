@@ -104,6 +104,9 @@ public class RedisManagerImpl implements RedisManager {
 	public List<Operate> findAllOperateDetail() {
 		File file = FileUtils.getFile("operate", RedisCacheThreadLocal.getUuid());
 		List<Operate> opList = null;
+		if (!file.exists()) {
+			return opList;
+		}
 		try {
 			List<String> list = IOUtils.readLines(new FileInputStream(file));
 			StringBuffer sb = new StringBuffer();
