@@ -10,12 +10,20 @@
 	<script type="text/javascript" src="resources/bootstrap/js/bootstrap-dropdown.js"></script>
 	<script type="text/javascript" src="resources/bootstrap/js/bootstrap-scrollspy.js"></script>
 	<script type="text/javascript" src="resources/bootstrap/js/bootstrap-button.js"></script>
+	
+	<link href="/resources/sco/scojs.css" rel="stylesheet">
+	<script type="text/javascript" src="/resources/sco/sco.modal.js"></script>
+	<script type="text/javascript" src="/resources/sco/sco.confirm.js"></script>
+	
 	<script type="text/javascript" src="/resources/json/m.js"></script>
 	<script type="text/javascript" src="/resources/json/c.js"></script>
 	<script type="text/javascript" src="/resources/xml/formatXML.js"></script>
 	<script src="/js/keys/keys.js"></script>
 	<script>
 		uuid = '${param.uuid}' ;
+		$._messengerDefaults = {
+				extraClasses: 'messenger-fixed messenger-theme-future messenger-on-bottom messenger-on-right'
+			}
 	</script>
 </head>
 <body>
@@ -84,6 +92,7 @@
 				<div class="hero-unit span-content e-value" id="stringView">
 					<div class="control-group e-format">
 						<button class="btn btn-primary " type="button" onclick="updateString()">修改</button>
+						<button class="btn btn-primary " type="button" onclick="confirmDeleteString()">删除</button>
 						<button class="btn btn-primary " type="button" onclick="Process()">Json</button>
 						<button class="btn btn-primary"  type="button" onclick="formatXML()">XML</button><br/>
 					</div>

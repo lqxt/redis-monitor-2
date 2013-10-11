@@ -21,7 +21,7 @@ $(document).ready(function() {
 	        						y = data.hashMap.used_memory/1024 ;
 	        						series.addPoint([x, y], true, true );
 	        						});
-	                        }, 1000);
+	                        }, 2000);
 	                    }
 	                }
 	            },
@@ -87,12 +87,12 @@ $(document).ready(function() {
 	        						y = data.hashMap.dbSize ;
 	        						series.addPoint([x, y], true, true );
 	        						});
-	        				}, 1000);
+	        				}, 2000);
 	        			}
 	        		}
 	        	},
 	        	title: {
-	        		text: 'memery'
+	        		text: 'keys'
 	        	},
 	        	xAxis: {
 	        		type: 'datetime',
@@ -100,7 +100,7 @@ $(document).ready(function() {
 	        	},
 	        	yAxis: {
 	        		title: {
-	        			text: 'kb'
+	        			text: ''
 	        		},
 	        		plotLines: [{
 	        			value: 0,
@@ -122,7 +122,7 @@ $(document).ready(function() {
 	        		enabled: false
 	        	},
 	        	series: [{
-	        		name: 'memery',
+	        		name: 'keys',
 	        		data: (function() {
 	        			var data = [],
 	        			time = (new Date()).getTime(),
@@ -131,7 +131,7 @@ $(document).ready(function() {
 	        			for (i = -19; i <= 0; i++) {
 	        				data.push({
 	        					x: time + i * 1000,
-	        					y: Math.random() * (1000 - 800) + 800
+	        					y: 0
 	        				});
 	        			}
 	        			return data;

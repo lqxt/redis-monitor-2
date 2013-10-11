@@ -69,8 +69,64 @@ function formatXML(){
 }
 
 function updateString(){
+	if(typeof key == 'undefined'){
+		$.globalMessenger().post({
+			message: '没有要修改的key',
+			type: 'info',
+			showCloseButton: true
+		});
+		return ;
+	}
 	var val = $("#stringView").find("textarea").val() ;
 	$.post('/keys/updateString.htm' , {key:key , value:val} , function(data){
 		console.log(data) ;
+		if(data.status == 0){
+			$.globalMessenger().post({
+				  message: '修改成功',
+				  type: 'info',
+				  showCloseButton: true
+				});
+		} else {
+			$.globalMessenger().post({
+				  message: '修改失败',
+				  type: 'info',
+				  showCloseButton: true
+				});
+		}
+		
+	} , "json") ;
+}
+
+function confirmDeleteString(){
+	if(typeof key == 'undefined'){
+		$.globalMessenger().post({
+			message: '没有要删除的key',
+			type: 'info',
+			showCloseButton: true
+		});
+		return ;
+	}
+	
+	var confirm = $.scojs_confirm({content:'确认要删除吗?' , action:deleteString});
+	confirm.show() ;
+}
+
+function deleteString(){
+	$.post('/keys/deleteString.htm' , {key:key} , function(data){
+		console.log(data) ;
+		if(data.status == 0){
+			$.globalMessenger().post({
+				message: '删除成功',
+				type: 'info',
+				showCloseButton: true
+			});
+		} else {
+			$.globalMessenger().post({
+				message: '删除失败',
+				type: 'info',
+				showCloseButton: true
+			});
+		}
+		
 	} , "json") ;
 }
