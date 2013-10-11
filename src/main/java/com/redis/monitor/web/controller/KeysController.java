@@ -111,4 +111,18 @@ public class KeysController extends BaseProfileController{
 		} 
 		return putModel(data) ;
 	}
+	
+	@RequestMapping("/keys/deleteString.htm")
+	public ModelAndView deleteString(@RequestParam String key) {
+		Map<String , Object> data = new HashMap<String , Object>() ;
+		data.put(Constants.RES_STATUS, 0) ;
+		try{
+			redisManager.delete(key) ;
+		} catch(Exception e) {
+			logger.error("" , e); 
+			data.put(Constants.RES_STATUS, 1) ;
+			data.put(Constants.RES_MSG , "删除出错") ;
+		} 
+		return putModel(data) ;
+	}
 }
