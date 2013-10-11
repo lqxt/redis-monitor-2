@@ -89,6 +89,11 @@ public class KeysController extends BaseProfileController{
 			}
 		}
 		
+		if(isOk){
+			long ttl = redisManager.ttl(key) ;
+			res.put("ttl", ttl) ;
+		}
+		
 		try{
 		} catch(Exception e ) {
 			logger.error("" , e); 
