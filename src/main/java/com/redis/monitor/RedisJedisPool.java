@@ -45,9 +45,6 @@ public class RedisJedisPool {
 		if (rs != null) {
 			BasicRedisCacheServer server = new RedisCacheServer(rs.getHost(), rs.getPort(), rs.getMaxActive(), rs.getMaxIdle(), rs.getMaxWait(), rs.isTestOnBorrow());
 			
-			
-			String ping = server.ping();
-			System.out.println("ping : " + ping);
 			Redis redis = new Redis(server, rs);
 			map.put(rs.getUuid(), redis);
 		}

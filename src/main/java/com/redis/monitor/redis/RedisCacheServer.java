@@ -15,14 +15,17 @@ import com.redis.monitor.FeJedisMonitor;
 import com.redis.monitor.json.FastJson;
 
 public class RedisCacheServer implements BasicRedisCacheServer {
-	private static JedisPool jedisPool;
+	private JedisPool jedisPool;
 
 	public static final Integer DEFAULT_EXPIRE_TIME = 60 * 60 * 24;
 	
 	public RedisCacheServer (final String host,final int port,int maxActive,int maxIdle,int maxWait,boolean testOnBorrow) {
-		final JedisPoolConfig jpConfig = new JedisPoolConfig();
+		JedisPoolConfig jpConfig = new JedisPoolConfig();
+		if (maxActive == 0) maxActive = 10;
 		jpConfig.setMaxActive(maxActive);
+		if (maxIdle == 0) maxIdle = 10;
 		jpConfig.setMaxIdle(maxIdle);
+		if (maxWait == 0) maxWait = 10;
 		jpConfig.setMaxWait(maxWait);
 		jpConfig.setTestOnBorrow(testOnBorrow);
 		jedisPool = new JedisPool(jpConfig, host,port);
@@ -615,7 +618,7 @@ public class RedisCacheServer implements BasicRedisCacheServer {
 		}
 	}
 
-	public static JedisPool getJedisPool() {
+	public JedisPool getJedisPool() {
 		return jedisPool;
 	}
 

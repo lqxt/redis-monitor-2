@@ -84,17 +84,18 @@ public class SocketMonitor {
 	
 	public static void disconnectClient() {
 		Jedis jedis = clientMap.get(RedisCacheThreadLocal.getUuid());
+		BasicRedisCacheServer brc = RedisJedisPool.getRedisCacheServer(RedisCacheThreadLocal.getUuid());
 		if (jedis != null) {
-			RedisCacheServer.getJedisPool().returnResource(jedis);
+			brc.getJedisPool().returnResource(jedis);
 			clientMap.remove(RedisCacheThreadLocal.getUuid());
 		}
 	}
 	
 	public static void disconnectClient(String uuid) {
-		Jedis jedis = clientMap.get(uuid) ;
+		Jedis jedis = clientMap.get(uuid);
+		BasicRedisCacheServer brc = RedisJedisPool.getRedisCacheServer(RedisCacheThreadLocal.getUuid());
 		if (jedis != null) {
-			RedisCacheServer.getJedisPool().returnResource(jedis);
-			jedis.getClient().disconnect();
+			brc.getJedisPool().returnResource(jedis);
 			clientMap.remove(RedisCacheThreadLocal.getUuid());
 		}
 	}

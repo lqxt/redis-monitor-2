@@ -118,5 +118,7 @@ public interface BasicRedisCacheServer {
 	
 	public String set(String key, String value) ;
 	
+	public JedisPool getJedisPool();
+	
 }
 
