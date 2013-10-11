@@ -31,10 +31,6 @@
                 <th field="uuid" width="50">uuid</th>
                 <th field="host" width="50">host</th>
                 <th field="port" width="50">port</th>
-                <th field="maxActive" width="50">maxActive</th>
-                <th field="maxIdle" width="50">maxIdle</th>
-                <th field="maxWait" width="50">maxWait</th>
-                <th field="testOnBorrow" width="50">testOnBorrow</th>
                 <th field="master" width="50">isMaster</th>
                 <th field="slaveRedisServer" width="50">slaves</th>
                 <th field="name" width="50">名称</th>
@@ -43,34 +39,11 @@
         </thead>
     </table>
     <div id="toolbar">
-       <button class="btn btn-small btn-primary" id="addRedis"  onclick="newRedis()">添加</button>
-       <a href="#myModal" role="button" class="btn" data-toggle="modal">Modal</a>
-       <button class="btn btn-small btn-primary" id="updateRedis">修改</button>
+       <a href="#myModal" role="button" class="btn btn-small btn-primary" data-toggle="modal">添加</a>
+       <button class="btn btn-small btn-primary" data-toggle="modal"  id="updateRedis">修改</button>
        <button class="btn btn-small btn-primary" id="removeRedis">删除</button>
     </div>
     
-    <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
-            closed="true" buttons="#dlg-buttons">
-        <div class="ftitle">redis服务列表</div>
-        <form id="fm" method="post" novalidate>
-            <div class="fitem">
-                <label>First Name:</label>
-                <input name="firstname" class="easyui-validatebox" required="true">
-            </div>
-            <div class="fitem">
-                <label>Last Name:</label>
-                <input name="lastname" class="easyui-validatebox" required="true">
-            </div>
-            <div class="fitem">
-                <label>Phone:</label>
-                <input name="phone">
-            </div>
-            <div class="fitem">
-                <label>Email:</label>
-                <input name="email" class="easyui-validatebox" validType="email">
-            </div>
-        </form>
-    </div>
     <div id="dlg-buttons">
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">Save</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$j('#dlg').dialog('close')">Cancel</a>
@@ -91,25 +64,49 @@
             }
         }
         function saveUser(){
-            $('#fm').form('submit',{
-                url: url,
-                onSubmit: function(){
-                    return $(this).form('validate');
-                },
-                success: function(result){
-                    var result = eval('('+result+')');
-                    if (result.errorMsg){
-                        $.messager.show({
-                            title: 'Error',
-                            msg: result.errorMsg
-                        });
-                    } else {
-                        $('#dlg').dialog('close');        // close the dialog
-                        $('#dg').datagrid('reload');    // reload the user data
-                    }
-                }
-            });
+            $('#newServer').submit();
         }
+        
+        $('#removeRedis').click(function(){
+        	var selectRow = $('#dg').datagrid('getSelections');
+        	if (selectRow.length > 0) {
+        		$.messager.confirm('确认','您是否要删除当前选中的记录?',function(r){
+        			if (r) {
+        				var uuid = selectRow[0].uuid;
+        				$.ajax({
+        					url : '/server/removeServer.htm',
+        					data : {'uuid' : uuid},
+        					dataType : 'json',
+        					method : 'get',
+        					success : function(result) {
+        							$('#dg').datagrid('reload');
+        							$('#dg').datagrid('clearSelections');
+        							window.location.href = '/server/redisServer.htm';
+        						//	$.messager.show({'title' : '提示','msg':'删除成功!'});
+        					}
+        				});
+        			}
+        		});
+        	} else {
+        		$.messager.alert('提示','请选中要删除的记录!');
+        	}
+        });
+        
+        $('#updateRedis').click(function(){
+        	var selectRow = $('#dg').datagrid('getSelections');
+        	if (selectRow.length > 0) {
+        		$('#myModal').modal('show');
+        		var rowObj = selectRow[0];
+        		for (var key in rowObj) {
+        			$('#newServer').form('clear');
+        			var formAttr = "#newServer " + "#" +key;
+        			$(formAttr).attr("placeholder",rowObj[key]);
+        		}
+        	} else {
+        		$.messager.alert('提示','请选中要更新的记录!');
+        	}
+        });
+        
         function destroyUser(){
             var row = $('#dg').datagrid('getSelected');
             if (row){
@@ -158,32 +155,55 @@
               <h5 id="myModalLabel">新增</h5>
             </div>
             <div class="modal-body">
-            <form class="form-horizontal e-form">
+            <form class="form-horizontal e-form" action="/server/newServer.htm" method="post" id="newServer">
 			  <div class="control-group">
-			    <label class="control-label" for="inputEmail">Email</label>
+			    <label class="control-label" for="uuid">uuid</label>
 			    <div class="controls">
-			      <input type="text" id="inputEmail" placeholder="Email">
+			      <input type="text" id="uuid" name="uuid" placeholder="uuid">
 			    </div>
 			  </div>
 			  <div class="control-group">
-			    <label class="control-label" for="inputPassword">Password</label>
+			    <label class="control-label" for="host">host</label>
 			    <div class="controls">
-			      <input type="password" id="inputPassword" placeholder="Password">
+			      <input type="text" id="host" name="host" placeholder="host">
 			    </div>
 			  </div>
 			  <div class="control-group">
+			    <label class="control-label" for="port">port</label>
 			    <div class="controls">
-			      <label class="checkbox">
-			        <input type="checkbox"> Remember me
-			      </label>
-			      <button type="submit" class="btn">Sign in</button>
+			      <input type="text" id="port" name="port" placeholder="port">
+			    </div>
+			  </div>
+			  <div class="control-group">
+			    <label class="control-label" for="isMaster ">isMaster</label>
+			    <div class="controls">
+			      <input id="isMaster" name="isMaster" type="radio" value="" />true
+                  <input id="isMaster" name="isMaster" type="radio" value="" />false
+			    </div>
+			  </div>
+			  <div class="control-group">
+			    <label class="control-label" for="slaves">slaves</label>
+			    <div class="controls">
+			      <input type="text" id="slaves" name="slaves" placeholder="slaves ">
+			    </div>
+			  </div>
+			  <div class="control-group">
+			    <label class="control-label" for="name">名称 </label>
+			    <div class="controls">
+			      <input type="text" id="name" name="name" placeholder="名称 ">
+			    </div>
+			  </div>
+			  <div class="control-group">
+			    <label class="control-label" for="description">描述 </label>
+			    <div class="controls">
+			      <input type="text" id="description" name="description" placeholder="描述 ">
 			    </div>
 			  </div>
 			</form>
             </div>
             <div class="modal-footer">
               <button class="btn" data-dismiss="modal">关闭</button>
-              <button class="btn btn-primary">保存</button>
+              <button class="btn btn-primary" onclick="saveUser()">保存</button>
             </div>
           </div>
           
