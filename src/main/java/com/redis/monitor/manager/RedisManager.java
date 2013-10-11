@@ -52,4 +52,6 @@ public interface RedisManager {
 	public String set(String key, Object value);
 
 	public void delete(String... key);
+	
+	public long ttl(String key ) ;
 }

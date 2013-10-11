@@ -221,4 +221,9 @@ public class RedisManagerImpl implements RedisManager {
 	public void delete(String... key){
 		getBasicRedisCacheServer().del(key); 
 	}
+	
+	@Override
+	public long ttl(String key ){
+		return getBasicRedisCacheServer().ttl(key) ;
+	}
 }
