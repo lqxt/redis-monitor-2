@@ -94,7 +94,8 @@
 						<button class="btn btn-primary " type="button" onclick="updateString()">修改</button>
 						<button class="btn btn-primary " type="button" onclick="confirmDeleteString()">删除</button>
 						<button class="btn btn-primary " type="button" onclick="Process()">Json</button>
-						<button class="btn btn-primary"  type="button" onclick="formatXML()">XML</button><br/>
+						<button class="btn btn-primary"  type="button" onclick="formatXML()">XML</button>
+						<input type="text" id="ttl" value="" style="width: 50px;height: 30px;margin: 10px 0 10px 0;" title="剩余生存时间"/><br/>
 					</div>
 					<textarea class=""></textarea>
 					

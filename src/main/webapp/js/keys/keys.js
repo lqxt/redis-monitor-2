@@ -48,6 +48,7 @@ function getValue(key){
 		
 		if(data.type == 'string'){
 			$("#stringView").show().find("textarea").val(data.value) ;
+			$("#ttl").val(data.ttl) ;
 		} else if(data.type == "map"){
 			$.each(data.value , function(key , value){
 				$("#mapView").show().find("tbody").append("<tr><td><p style=\"width:200px;\">"+ key +"</p></td><td><p style=\"width:600px;word-wrap: break-word;word-break: normal;\">"+ value +"</p></td></tr>") ;
