@@ -3,13 +3,18 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<pubTag:resource/>
+	
+	<script type="text/javascript" src="/resources/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/resources/bootstrap/js/bootstrap-scrollspy.js"></script>
+	<script type="text/javascript" src="/resources/bootstrap/js/bootstrap-button.js"></script>
+	<script type="text/javascript" src="resources/bootstrap/js/bootstrap-dropdown.js"></script>
+	
 	<link rel="stylesheet" type="text/css" href="/resources/jquery-easyui-1.3.4/themes/bootstrap/easyui.css">
     <link rel="stylesheet" type="text/css" href="/resources/jquery-easyui-1.3.4/themes/icon.css">
-    <script type="text/javascript" src="/resources/jquery-easyui-1.3.4/jquery.min.js"></script>
     <script type="text/javascript" src="/resources/jquery-easyui-1.3.4/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="/resources/jquery-easyui-1.3.4/locale/easyui-lang-zh_CN.js"></script>
 	<title>Angel</title>
-	<pubTag:resource/>
 	
 </head>
 <body>
