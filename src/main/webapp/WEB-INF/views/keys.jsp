@@ -30,7 +30,7 @@
 				<div class="well sidebar-nav info keys">
 					<div class="form-search e-search-form">
 					  <input type="text" class="input-medium search-query" id="searchValue" style="width: 140px;">
-					  <button class="btn btn-primary" id="search">搜索</button>
+					  <button class="btn btn-small btn-primary" id="search">搜索</button>
 					  <input type="text" id="showNum" value="100" style="width: 50px;" title="显示数量"/>
 					</div>
 					
@@ -47,7 +47,7 @@
 						<li><a href="#three">Set</a></li>
 					  </ul>
 					</div> -->
-					<table class="table table-hover">
+					<table class="table table-hover table-condensed">
 						<thead>
 							<tr>
 							</tr>
@@ -63,25 +63,22 @@
 			
 			<div class="span8"> 
 				<div class="hero-unit span-content hide" id="listView">
-					<table class="table table-hover e-table-edit">
+					<table class="table table-hover table-condensed e-table-edit ">
 						<thead>
-							<tr><th>index</th><th >Value</th></tr>
+							<th>操作</th><tr><th>index</th><th >Value</th></tr>
 						</thead>
 						<tbody>
 						</tbody>
 					</table>
 				</div>
 				<div class="hero-unit span-content hide" id="mapView">
-					<table class="table table-hover e-table-edit">
+					<table class="table table-hover table-condensed e-table-edit">
 						<thead>
 							<tr>
-								<th>Key</th>
-								<th >Value</th>
+								<th>操作</th><th>Key</th><th >Value</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-							</tr>
 						</tbody>
 					</table>
 				</div>

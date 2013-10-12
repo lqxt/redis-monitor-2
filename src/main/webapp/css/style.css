@@ -56,6 +56,7 @@ body {
 }
 .keys .e-search-form {
 	float: left;
+	margin-bottom: 5px;
 }
 .keys .e-search-form input{
 	height: 25px;

@@ -51,11 +51,13 @@ function getValue(key){
 			$("#ttl").val(data.ttl) ;
 		} else if(data.type == "map"){
 			$.each(data.value , function(key , value){
-				$("#mapView").show().find("tbody").append("<tr><td><p style=\"width:200px;\">"+ key +"</p></td><td><p style=\"width:600px;word-wrap: break-word;word-break: normal;\">"+ value +"</p></td></tr>") ;
+				var operate = '<td><p><button type="button" class="btn btn-mini btn-link" href="#" onclick="confirmDeleteMapEntry("'+key+'")">删除</button><button type="button" class="btn btn-mini btn-link" href="#" onclick="updateMapEntry("'+key+'")">修改</button></p></td>' ;
+				$("#mapView").show().find("tbody").append("<tr>"+operate+"<td><p style=\"width:200px;\">"+ key +"</p></td><td><p style=\"width:600px;word-wrap: break-word;word-break: normal;\">"+ value +"</p></td></tr>") ;
 			}) ;
 		} else if(data.type == "list") {
 			$.each(data.value , function(index , value){
-				$("#listView").show().find("tbody").append("<tr><td><p style=\"width:200px;\">"+ index +"</p></td><td><p style=\"width:600px;word-wrap: break-word;word-break: normal;\">"+ value +"</p></td></tr>") ;
+				var operate = '<td><p><button type="button" class="btn btn-mini btn-link" href="#" onclick="confirmDeleteMapEntry("'+key+'")">删除</button><button type="button" class="btn btn-mini btn-link" href="#" onclick="updateMapEntry("'+key+'")">修改</button></p></td>' ;
+				$("#listView").show().find("tbody").append("<tr>"+operate+"<td><p style=\"width:200px;\">"+ index +"</p></td><td><p style=\"width:600px;word-wrap: break-word;word-break: normal;\">"+ value +"</p></td></tr>") ;
 			}) ;
 		}
 		console.log(data) ;
