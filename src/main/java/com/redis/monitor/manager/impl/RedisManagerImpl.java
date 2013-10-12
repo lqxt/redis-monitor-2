@@ -72,6 +72,7 @@ public class RedisManagerImpl implements RedisManager {
 	    		RedisConfig rc = new RedisConfig();
 	    		rc.setKey(str);
 	    		rc.setValue(configList.get(index+1));
+	    		rc.setDescription(str);
 	    		list.add(rc);
 	    	}
 	    	index++;

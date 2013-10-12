@@ -40,6 +40,7 @@ public class RedisConfig {
 	
 	private String key;
 	private String value;
+	private String description;
 	public String getKey() {
 		return key;
 	}
@@ -52,4 +53,11 @@ public class RedisConfig {
 	public void setValue(String value) {
 		this.value = value;
 	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String key) {
+		this.description = descMap.get(key) == null ? "" : descMap.get(key);
+	}
+	
 }

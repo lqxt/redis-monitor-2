@@ -20,9 +20,9 @@
    <bean id="startQuertz" autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
         <property name="triggers">  
             <list>  
-               <ref bean="saveRedisMemery"/>
+              <!--  <ref bean="saveRedisMemery"/>
                <ref bean="saveRedisKeys"/>
-               <ref bean="saveRedisOperates"/>
+               <ref bean="saveRedisOperates"/> -->
             </list>  
        </property>  
     </bean>
