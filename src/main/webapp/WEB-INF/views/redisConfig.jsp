@@ -8,7 +8,7 @@
 	<script type="text/javascript" src="/resources/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/resources/bootstrap/js/bootstrap-scrollspy.js"></script>
 	<script type="text/javascript" src="/resources/bootstrap/js/bootstrap-button.js"></script>
-	<script type="text/javascript" src="resources/bootstrap/js/bootstrap-dropdown.js"></script>
+	<script type="text/javascript" src="/resources/bootstrap/js/bootstrap-dropdown.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="/resources/jquery-easyui-1.3.4/themes/bootstrap/easyui.css">
     <link rel="stylesheet" type="text/css" href="/resources/jquery-easyui-1.3.4/themes/icon.css">
