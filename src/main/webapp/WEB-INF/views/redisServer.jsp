@@ -78,6 +78,7 @@
         					data : {'uuid' : uuid},
         					dataType : 'json',
         					method : 'get',
+        					async : false,
         					success : function(result) {
         							$('#dg').datagrid('reload');
         							$('#dg').datagrid('clearSelections');
@@ -177,7 +178,7 @@
 			  <div class="control-group">
 			    <label class="control-label" for="isMaster ">isMaster</label>
 			    <div class="controls">
-			      <input id="isMaster" name="isMaster" type="radio" value="" />true
+			      <input id="isMaster" name="isMaster" type="radio" checked="checked" value="" />true
                   <input id="isMaster" name="isMaster" type="radio" value="" />false
 			    </div>
 			  </div>

@@ -64,12 +64,12 @@ public class ServerInteceptor extends HandlerInterceptorAdapter {
 			}
 			
 			RedisCacheThreadLocal.set(uuid);
-			/*BasicRedisCacheServer brc = RedisJedisPool.getRedisCacheServer();
+			BasicRedisCacheServer brc = RedisJedisPool.getRedisCacheServer();
 			String ping = brc.ping();
 			if (!ping.equals("PONG")) {
 					response.sendRedirect("/welcome.html");
 					return false;
-			}*/
+			}
 			request.setAttribute("host",RedisJedisPool.getRedisServer().getHost());
 			request.setAttribute("port", RedisJedisPool.getRedisServer().getPort());
 			request.setAttribute("uuid", uuid);
@@ -113,7 +113,6 @@ public class ServerInteceptor extends HandlerInterceptorAdapter {
 	public void afterCompletion(HttpServletRequest request,
 			HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
-		
 		// TODO 清除上下文
 		RedisCacheThreadLocal.remove();
 		super.afterCompletion(request, response, handler, ex);

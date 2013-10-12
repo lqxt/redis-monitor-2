@@ -18,6 +18,8 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import redis.clients.util.Slowlog;
+
 import com.redis.monitor.RedisCacheThreadLocal;
 import com.redis.monitor.RedisConfig;
 import com.redis.monitor.RedisInfoDetail;
@@ -102,7 +104,7 @@ public class RedisManagerImpl implements RedisManager {
 	}
 	
 	public List<Operate> findAllOperateDetail() {
-		File file = FileUtils.getFile("operate", RedisCacheThreadLocal.getUuid());
+		/*File file = FileUtils.getFile("operate", RedisCacheThreadLocal.getUuid());
 		List<Operate> opList = null;
 		if (!file.exists()) {
 			return opList;
@@ -120,7 +122,39 @@ public class RedisManagerImpl implements RedisManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return opList;
+		return opList;*/
+        List<Slowlog> list = getBasicRedisCacheServer().slowlogs();
+		List<Operate> opList = null;
+		Operate op  = null;
+		boolean flag = false;
+		if (list != null && list.size() > 0) {
+			opList = new LinkedList<Operate>();
+			for (Slowlog sl : list) {
+				String args = FastJson.toJson(sl.getArgs());
+				if (args.equals("[\"PING\"]") || args.equals("[\"SLOWLOG\",\"get\"]") || args.equals("[\"DBSIZE\"]") || args.equals("[\"INFO\"]")) {
+					continue;
+				}	
+				op = new Operate();
+				flag = true;
+				op.setId(sl.getId());
+				op.setCreateTime(getDateStr());
+				op.setExecuteTime(getDateStr(sl.getTimeStamp() * 1000));
+				op.setUsedTime(sl.getExecutionTime()/1000.0 + "ms");
+				op.setArgs(args);
+				
+				opList.add(op);
+			}
+		} 
+		if (flag) 
+			return opList;
+		else 
+			return null;
+	}
+	
+	
+	private String getDateStr(long timeStmp) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return dateFormat.format(new Date(timeStmp));
 	}
 	
 	public Set<String> getKeysByPattern(String uuid , String patternKey) {

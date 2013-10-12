@@ -51,7 +51,7 @@
 								<th>id</th>
 								<th>创建时间</th>
 								<th>执行时间</th>
-								<th>用时(微秒)</th>
+								<th>用时(毫秒)</th>
 								<th>执行命令</th>
 							</tr>
 						</thead>
@@ -62,7 +62,8 @@
 								<td>${op.createTime }</td>
 								<td>${op.executeTime }</td>
 								<td>${op.usedTime }</td>
-								<td>${op.args }</td>
+								
+								<td><p style="width:600px;word-wrap: break-word;word-break: normal;">${op.args }</p></td>
 							</tr>
 						</c:forEach>
 						</tbody>
