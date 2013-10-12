@@ -11,10 +11,6 @@
 	<script type="text/javascript" src="resources/bootstrap/js/bootstrap-scrollspy.js"></script>
 	<script type="text/javascript" src="resources/bootstrap/js/bootstrap-button.js"></script>
 	
-	<link href="/resources/sco/scojs.css" rel="stylesheet">
-	<script type="text/javascript" src="/resources/sco/sco.modal.js"></script>
-	<script type="text/javascript" src="/resources/sco/sco.confirm.js"></script>
-	
 	<script type="text/javascript" src="/resources/json/m.js"></script>
 	<script type="text/javascript" src="/resources/json/c.js"></script>
 	<script type="text/javascript" src="/resources/xml/formatXML.js"></script>

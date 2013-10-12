@@ -9,6 +9,10 @@
 <script type="text/javascript" src="/resources/messager/messenger.min.js"></script>
 <script type="text/javascript" src="/resources/messager/messagerUtil.js"></script>
 
+<link href="/resources/sco/scojs.css" rel="stylesheet">
+<script type="text/javascript" src="/resources/sco/sco.modal.js"></script>
+<script type="text/javascript" src="/resources/sco/sco.confirm.js"></script>
+	
 <script type="text/javascript" >
 //var $j = $.noConflict();
 </script>
