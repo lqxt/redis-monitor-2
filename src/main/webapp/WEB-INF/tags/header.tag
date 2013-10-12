@@ -10,10 +10,10 @@
 	function flushAll(){
 		console.log("flush all") ;
 		$.getJSON('/flushall.htm' , function(data){
-			if(data.statu == 0){
-				message('操作成功') ;
+			if(data.statu.toLowerCase() == 'ok'){
+				message('flushAll操作成功') ;
 			} else {
-				message('操作失败') ;
+				message('flushAll操作失败') ;
 			}
 		}) ;
 	}
@@ -24,10 +24,10 @@
 	function flushDB(){
 		console.log("flush db") ;
 		$.getJSON('/flushDb.htm' , function(data){
-			if(data.statu == 0){
-				message('操作成功') ;
+			if(data.statu.toLowerCase() == 'ok'){
+				message('flushDB操作成功') ;
 			} else {
-				message('操作失败') ;
+				message('flushDB操作失败') ;
 			}
 		}) ;
 	}

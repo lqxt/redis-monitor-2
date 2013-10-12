@@ -71,28 +71,16 @@ function formatXML(){
 
 function updateString(){
 	if(typeof key == 'undefined'){
-		$.globalMessenger().post({
-			message: '没有要修改的key',
-			type: 'info',
-			showCloseButton: true
-		});
+		message('没有要修改的key') ;
 		return ;
 	}
 	var val = $("#stringView").find("textarea").val() ;
 	$.post('/keys/updateString.htm' , {key:key , value:val} , function(data){
 		console.log(data) ;
 		if(data.status == 0){
-			$.globalMessenger().post({
-				  message: '修改成功',
-				  type: 'info',
-				  showCloseButton: true
-				});
+			message('修改成功') ;
 		} else {
-			$.globalMessenger().post({
-				  message: '修改失败',
-				  type: 'info',
-				  showCloseButton: true
-				});
+			message('修改失败') ; 
 		}
 		
 	} , "json") ;
@@ -100,11 +88,7 @@ function updateString(){
 
 function confirmDeleteString(){
 	if(typeof key == 'undefined'){
-		$.globalMessenger().post({
-			message: '没有要删除的key',
-			type: 'info',
-			showCloseButton: true
-		});
+		message('没有要删除的key');
 		return ;
 	}
 	
@@ -116,17 +100,9 @@ function deleteString(){
 	$.post('/keys/deleteString.htm' , {key:key} , function(data){
 		console.log(data) ;
 		if(data.status == 0){
-			$.globalMessenger().post({
-				message: '删除成功',
-				type: 'info',
-				showCloseButton: true
-			});
+			message('删除成功') ; 
 		} else {
-			$.globalMessenger().post({
-				message: '删除失败',
-				type: 'info',
-				showCloseButton: true
-			});
+			message('删除失败') ; 
 		}
 		
 	} , "json") ;
