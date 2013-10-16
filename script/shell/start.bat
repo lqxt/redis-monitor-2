@@ -1,0 +1,3 @@
+echo start angel...
+cd ..\..\src\main\webapp\WEB-INF\classes
+java -Djava.ext.dirs=..\lib com.redis.monitor.server.jetty.JettyServer
