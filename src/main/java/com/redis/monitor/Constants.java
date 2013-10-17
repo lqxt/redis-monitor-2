@@ -7,6 +7,7 @@ public class Constants {
 	public static final ResourceBundle config = ResourceBundle.getBundle("config");
 	
 	public static final String WEB_APP = config.getString("webapp");
+	public static final int PORT = Integer.parseInt(config.getString("port"));
 	public static final String DEFAULT_UUID = config.getString("default_uuid");
 	public static final String JSON_VIEW = "jsonView";
 	

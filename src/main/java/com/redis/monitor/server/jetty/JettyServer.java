@@ -11,10 +11,12 @@ import org.eclipse.jetty.webapp.WebAppContext;
 import com.redis.monitor.Constants;
 
 public class JettyServer {
-	public static final int DEFALUT_PORT = 8888;
+	public static  int DEFALUT_PORT = 8888;
 	public static void main(String[] args) throws Exception {
-		   String webapp = Constants.WEB_APP;//声明项目所在的目录
-	       Server server = new Server(8080);                                //声明端口
+		//  String webapp = Constants.WEB_APP;//声明项目所在的目录
+		   String webapp = getWebPath();
+		   if (Constants.PORT != 0) DEFALUT_PORT = Constants.PORT;
+	       Server server = new Server(DEFALUT_PORT);                                //声明端口
 	       WebAppContext context = new WebAppContext();                   //声明上下文对象
 	       context.setDescriptor(webapp + "/WEB-INF/web.xml");                //指定web.xml文件，可选
 	       context.setResourceBase(webapp);                               //设置项目路径
@@ -28,7 +30,6 @@ public class JettyServer {
 	private static String getWebPath() {
 		File file = new File(Thread.currentThread().getContextClassLoader().getResource("").getPath());
 		String path = file.getParentFile().getAbsolutePath();
-		System.out.println(path);
 		return path;
 	}
 }
