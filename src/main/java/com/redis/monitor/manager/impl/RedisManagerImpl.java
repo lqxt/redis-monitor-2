@@ -75,7 +75,7 @@ public class RedisManagerImpl implements RedisManager {
 	    		rc.setDescription(str);
 	    		list.add(rc);
 	    	}
-	    	index++;
+	    	index++; 
 	    }
 		return list;
 	}

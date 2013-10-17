@@ -3,12 +3,15 @@ package com.redis.monitor.server.jetty;
 
 
 
+import java.io.File;
+
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 
 import com.redis.monitor.Constants;
 
 public class JettyServer {
+	public static final int DEFALUT_PORT = 8888;
 	public static void main(String[] args) throws Exception {
 		   String webapp = Constants.WEB_APP;//声明项目所在的目录
 	       Server server = new Server(8080);                                //声明端口
@@ -20,5 +23,12 @@ public class JettyServer {
 	       server.setHandler(context);                                    //设置句柄
 	       server.start();                                                //启动
 	       server.join();
+	}
+	
+	private static String getWebPath() {
+		File file = new File(Thread.currentThread().getContextClassLoader().getResource("").getPath());
+		String path = file.getParentFile().getAbsolutePath();
+		System.out.println(path);
+		return path;
 	}
 }
