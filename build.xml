@@ -14,6 +14,18 @@
 
 	<taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="ant-contrib.classpath" />
 
+	<target name="compile">
+		<artifact:dependencies  pathid="mavenclasspath" useScope="runtime">
+			<pom file="pom.xml" />
+		</artifact:dependencies>
+		<mkdir dir="${basedir}/src/main/webapp/WEB-INF/classes"/>
+		 <javac srcdir="${basedir}/src/main/java"
+		         destdir="${basedir}/src/main/webapp/WEB-INF/classes"
+		         classpathref="mavenclasspath">
+		 	<compilerarg value="-Xlint"/>
+		  </javac> 
+	</target>
+	
 	<target name="copyResources">
 		<copy todir="${deploy.home}/WEB-INF/classes">
 			<fileset dir="${resources.dir}" />
@@ -43,7 +55,20 @@
 	<target name="deploy" depends="" >
 		<ant target="copyResources"></ant>
 		<ant target="copyLib"></ant>
-		<ant target="copyClass"></ant>
 	</target>
+	
+	<target name="create-jar">
+		<echo>start create jar...</echo>
+		<jar destfile="${basedir}/target/redis-monitor.jar" basedir="${classes.dir}" includes="com/**"></jar>
+		<echo>end create jar...</echo>
+	</target>
+	
+	<target name="dist" depends="compile,deploy">
+		<copy todir="${basedir}/dist">
+			<fileset dir="${basedir}/src/main/webapp">
+			</fileset>
+		</copy>
+	</target>
+	
 	
 </project>

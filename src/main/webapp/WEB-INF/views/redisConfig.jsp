@@ -5,6 +5,11 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<pubTag:resource/>
 	
+	<link rel="stylesheet" type="text/css" href="/resources/jquery-easyui-1.3.4/themes/bootstrap/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/resources/jquery-easyui-1.3.4/themes/icon.css">
+    <script type="text/javascript" src="/resources/jquery-easyui-1.3.4/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/resources/jquery-easyui-1.3.4/locale/easyui-lang-zh_CN.js"></script>
+    
 	<script type="text/javascript" src="/resources/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/resources/bootstrap/js/bootstrap-scrollspy.js"></script>
 	<script type="text/javascript" src="/resources/bootstrap/js/bootstrap-button.js"></script>
@@ -15,10 +20,6 @@
 	<script type="text/javascript" src="/resources/fuelux/datasource.js"></script>
 	<script type="text/javascript" src="/resources/fuelux/datagrid.js"></script> -->
 	
-	<link rel="stylesheet" type="text/css" href="/resources/jquery-easyui-1.3.4/themes/bootstrap/easyui.css">
-    <link rel="stylesheet" type="text/css" href="/resources/jquery-easyui-1.3.4/themes/icon.css">
-    <script type="text/javascript" src="/resources/jquery-easyui-1.3.4/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="/resources/jquery-easyui-1.3.4/locale/easyui-lang-zh_CN.js"></script>
 	<title>Angel</title>
 	<script type="text/javascript">
 		function onLoadSuccess(data){
@@ -30,6 +31,9 @@
                 rowspan: rowsspan
             }); */
 		}
+		function descFormatter(data){
+			return decodeURIComponent(data) ;
+		}
 	</script>
 </head>
 <body>
@@ -37,38 +41,14 @@
 	<h2>Redis Server (redis.conf)</h2>
 	<div class="row-fluid" style="margin:0 10px 0 10px;">
       <div class="span10">
-     <!--  <table class="table table-bordered table-condensed">
-	  <caption></caption>
-	  <thead>
-	    <tr>
-	      <th>键</th>
-	      <th>值</th>
-	      <th>描述</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	    <tr>
-	      <td>...</td>
-	      <td>...</td>
-	      <td>...</td>
-	    </tr>
-	    <tr>
-	      <td>...</td>
-	      <td>...</td>
-	      <td>...</td>
-	    </tr>
-	  </tbody>
-	</table></div>
-    </div> 
-	 -->
    <div style="margin:10px 0;"></div>
 	    <table id="datagrid" class="easyui-datagrid" style=""
-	            data-options="fitColumns:true,onLoadSuccess: onLoadSuccess,rownumbers:true,singleSelect:true,collapsible:true,url:'${pageContext.request.contextPath}/config/configDetail.htm',method:'get'">
+	            data-options="nowrap:false,fitColumns:true,onLoadSuccess: onLoadSuccess,rownumbers:true,singleSelect:true,collapsible:true,url:'${pageContext.request.contextPath}/config/configDetail.htm',method:'get'">
 	        <thead>
 	            <tr>
 	                <th data-options="field:'key',width:350,align:'center'">键</th>
 	                <th data-options="field:'value',width:350,align:'center'">值</th>
-	                <th data-options="field:'desc',width:350,align:'center'">描述</th>
+	                <th data-options="field:'description',width:350,align:'center',formatter:descFormatter">描述</th>
 	            </tr>
 	        </thead>
 	        <tbody>
