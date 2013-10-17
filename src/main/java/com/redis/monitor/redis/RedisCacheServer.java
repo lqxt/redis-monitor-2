@@ -255,6 +255,20 @@ public class RedisCacheServer implements BasicRedisCacheServer {
 		}
 	}
 	
+	
+	public boolean isConnect() {
+		Jedis jedis = null;
+		try {
+			jedis = jedisPool.getResource();
+			return true ;
+		} catch(Exception e){
+			return false ;
+		} finally {
+			if (jedis != null)
+				jedisPool.returnResource(jedis);
+		}
+	}
+	
 	public String ping() {
 
 		Jedis jedis = null;

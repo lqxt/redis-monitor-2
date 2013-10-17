@@ -120,5 +120,6 @@ public interface BasicRedisCacheServer {
 	
 	public JedisPool getJedisPool();
 	
+	public boolean isConnect() ;
 }
 
