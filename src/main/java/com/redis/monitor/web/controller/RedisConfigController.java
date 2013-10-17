@@ -22,7 +22,7 @@ public class RedisConfigController extends BaseProfileController{
 	public ModelAndView configDetail() {
 		ModelAndView mv = getJsonModelAndView();
 		List<RedisConfig> rcList = redisManager.getRedisConfigXmlDetail();
-		mv.addObject("rows",rcList);
+		mv.addObject("rows",rcList); 
 		mv.addObject("total",rcList.size());
 		return mv;
 	}

@@ -1,5 +1,7 @@
 package com.redis.monitor;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,7 +45,7 @@ public class RedisConfig {
 	private String description;
 	public String getKey() {
 		return key;
-	}
+	} 
 	public void setKey(String key) {
 		this.key = key;
 	}
@@ -57,7 +59,11 @@ public class RedisConfig {
 		return description;
 	}
 	public void setDescription(String key) {
-		this.description = descMap.get(key) == null ? "" : descMap.get(key);
+		try {
+			this.description = descMap.get(key) == null ? "" : URLEncoder.encode(descMap.get(key) , "utf-8").replace("+", "%20") ;
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
