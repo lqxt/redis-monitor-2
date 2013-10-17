@@ -44,7 +44,7 @@
 				<div class="hero-unit chart">
 					<div id="keysChart"></div>
 				</div>
-				<div class="hero-unit chart">
+				<div class="hero-unit chart info">
 					<table class="table table-hover">
 						<thead>
 							<tr>
