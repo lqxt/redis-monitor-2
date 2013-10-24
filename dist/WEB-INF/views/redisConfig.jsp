@@ -31,6 +31,9 @@
                 rowspan: rowsspan
             }); */
 		}
+		function descFormatter(data){
+			return decodeURIComponent(data) ;
+		}
 	</script>
 </head>
 <body>
@@ -40,12 +43,12 @@
       <div class="span10">
    <div style="margin:10px 0;"></div>
 	    <table id="datagrid" class="easyui-datagrid" style=""
-	            data-options="fitColumns:true,onLoadSuccess: onLoadSuccess,rownumbers:true,singleSelect:true,collapsible:true,url:'${pageContext.request.contextPath}/config/configDetail.htm',method:'get'">
+	            data-options="nowrap:false,fitColumns:true,onLoadSuccess: onLoadSuccess,rownumbers:true,singleSelect:true,collapsible:true,url:'${pageContext.request.contextPath}/config/configDetail.htm',method:'get'">
 	        <thead>
 	            <tr>
 	                <th data-options="field:'key',width:350,align:'center'">键</th>
 	                <th data-options="field:'value',width:350,align:'center'">值</th>
-	                <th data-options="field:'description',width:350,align:'center'">描述</th>
+	                <th data-options="field:'description',width:350,align:'center',formatter:descFormatter">描述</th>
 	            </tr>
 	        </thead>
 	        <tbody>

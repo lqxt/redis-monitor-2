@@ -10,8 +10,9 @@
 	<name>redis-monitor</name>
 	<url>http://maven.apache.org</url>
 
-	<build> <outputDirectory>${basedir}/src/main/webapp/WEB-INF/classes</outputDirectory> 
-		</build>
+	<build> 
+		<outputDirectory>${basedir}/src/main/webapp/WEB-INF/classes</outputDirectory> 
+	</build>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
