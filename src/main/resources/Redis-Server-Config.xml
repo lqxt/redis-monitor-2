@@ -6,6 +6,8 @@
          <description>用户写服务</description>
          <host>192.168.4.131</host>
          <port>6379</port>
+         <!--add passwd by lqxt 20201119-->
+         <passwd>redis</passwd>
          <maxActive>300</maxActive>
          <maxIdle>50</maxIdle>
          <maxWait>3000</maxWait>
@@ -17,6 +19,8 @@
                <description>用户读服务</description>
                <host>192.168.4.131</host>
                <port>6379</port>
+               <!--add passwd by lqxt 20201119-->
+               <passwd>redis</passwd>
                <maxActive>300</maxActive>
                <maxIdle>50</maxIdle>
                <maxWait>3000</maxWait>
