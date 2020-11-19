@@ -96,6 +96,8 @@ public class RedisConfigInit {
 		String description = el.element("description").getText();
 		String host = el.element("host").getText();
 		int port = Integer.parseInt(el.element("port").getText());
+		/** 加入密码属性，2020-11-19  */
+		String passwd = el.element("passwd").getText();
 		int maxActive = Integer.parseInt(el.element("maxActive").getText());
 		int maxIdle = Integer.parseInt(el.element("maxIdle").getText());
 		int maxWait = Integer.parseInt(el.element("maxWait").getText());
@@ -108,6 +110,8 @@ public class RedisConfigInit {
 		rs.setDescription(description);
 		rs.setHost(host);
 		rs.setPort(port);
+		/** 加入密码属性，2020-11-19  */
+		rs.setPassWD(passwd);
 		rs.setMaxActive(maxActive);
 		rs.setMaxIdle(maxIdle);
 		rs.setMaxWait(maxWait);
